@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:firebase_core/firebase_core.dart';
+import 'package:news_aggregator/constans/routes.dart';
 import 'package:news_aggregator/firebase_options.dart';
 import 'logic/utils/route_generator.dart';
 
@@ -18,7 +19,7 @@ class MyApp extends StatelessWidget {
     return MaterialApp(
       debugShowCheckedModeBanner: false,
       theme: ThemeData.light(),
-      initialRoute: '/',
+      initialRoute: splashRoute,
       onGenerateRoute: RouteGenerator.generateRoute,
     );
   }
