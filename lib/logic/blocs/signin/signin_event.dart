@@ -4,16 +4,16 @@ part of 'signin_bloc.dart';
 abstract class SigninEvent extends Equatable {
   final String email;
   final String password;
-  const SigninEvent(
-    this.email,
-    this.password,
-  );
+  const SigninEvent({
+    required this.email,
+    required this.password,
+  });
 
   @override
-  List<Object> get props => [];
+  List<Object> get props => [email, password];
 }
 
 class SubmitSigninEvent extends SigninEvent {
-  const SubmitSigninEvent(String email, String password)
-      : super(email, password);
+  const SubmitSigninEvent({required String email, required String password})
+      : super(email: email, password: password);
 }
