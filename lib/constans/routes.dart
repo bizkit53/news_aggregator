@@ -1,0 +1,9 @@
+const String splashRoute = '/';
+const String signUpRoute = '/singUp';
+const String loginRoute = '/login';
+const String forgotPasswordRoute = '/forgotPassword';
+const String setNewPasswordRoute = '/setNewPassword';
+const String passwordChangedRoute = '/passwordChanged';
+const String feedRoute = '/feed';
+const String categoriesRoute = '/categories';
+const String savedArticlesRoute = '/savedArticles';
