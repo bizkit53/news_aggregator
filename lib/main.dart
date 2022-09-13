@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'package:news_aggregator/constans/routes.dart';
 import 'package:news_aggregator/firebase_options.dart';
+import 'package:news_aggregator/logic/utils/injector.dart';
 import 'logic/utils/route_generator.dart';
 
 void main() async {
@@ -9,6 +10,7 @@ void main() async {
   await Firebase.initializeApp(
     options: DefaultFirebaseOptions.currentPlatform,
   );
+  injectorSetup();
   runApp(const MyApp());
 }
 
