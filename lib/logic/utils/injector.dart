@@ -8,10 +8,5 @@ final GetIt locator = GetIt.instance;
 void injectorSetup() {
   locator.registerSingleton<FirebaseAuth>(FirebaseAuth.instance);
   locator.registerSingleton<FirebaseFirestore>(FirebaseFirestore.instance);
-  locator.registerSingleton<AuthRepository>(
-    AuthRepository(
-      firebaseFirestore: locator.get<FirebaseFirestore>(),
-      firebaseAuth: locator.get<FirebaseAuth>(),
-    ),
-  );
+  locator.registerSingleton<AuthRepository>(AuthRepository());
 }

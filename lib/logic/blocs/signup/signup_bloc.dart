@@ -1,16 +1,16 @@
 import 'package:bloc/bloc.dart';
 import 'package:equatable/equatable.dart';
 import 'package:news_aggregator/logic/repositories/auth_repository.dart';
+import 'package:news_aggregator/logic/utils/injector.dart';
 import 'package:news_aggregator/models/custom_error.dart';
 
 part 'signup_event.dart';
 part 'signup_state.dart';
 
 class SignupBloc extends Bloc<SignupEvent, SignupState> {
-  final AuthRepository authRepository;
-  SignupBloc(
-    this.authRepository,
-  ) : super(const SignupInitial()) {
+  final AuthRepository authRepository = locator.get<AuthRepository>();
+
+  SignupBloc() : super(const SignupInitial()) {
     on<SubmitSignupEvent>(
       (event, emit) async {
         emit(const SignupSubmitted());

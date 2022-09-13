@@ -3,15 +3,13 @@ import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart' as fb_auth;
 import 'package:news_aggregator/constans/db_constants.dart';
 import 'package:news_aggregator/models/custom_error.dart';
+import 'package:news_aggregator/logic/utils/injector.dart';
 
 class AuthRepository {
-  final FirebaseFirestore firebaseFirestore;
-  final fb_auth.FirebaseAuth firebaseAuth;
-  AuthRepository({
-    required this.firebaseFirestore,
-    required this.firebaseAuth,
-  });
+  final FirebaseFirestore firebaseFirestore = locator.get<FirebaseFirestore>();
+  final fb_auth.FirebaseAuth firebaseAuth = locator.get<fb_auth.FirebaseAuth>();
 
+  AuthRepository();
   Stream<fb_auth.User?> get user => firebaseAuth.userChanges();
 
   Future<void> signUp({
