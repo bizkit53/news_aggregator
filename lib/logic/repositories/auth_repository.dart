@@ -1,13 +1,16 @@
 // ignore_for_file: public_member_api_docs, sort_constructors_first
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart' as fb_auth;
+import 'package:logger/logger.dart';
 import 'package:news_aggregator/constans/db_constants.dart';
+import 'package:news_aggregator/logic/utils/logger.dart';
 import 'package:news_aggregator/models/custom_error.dart';
 import 'package:news_aggregator/logic/utils/injector.dart';
 
 class AuthRepository {
   final FirebaseFirestore firebaseFirestore = locator.get<FirebaseFirestore>();
   final fb_auth.FirebaseAuth firebaseAuth = locator.get<fb_auth.FirebaseAuth>();
+  final Logger log = logger(AuthRepository);
 
   AuthRepository();
   Stream<fb_auth.User?> get user => firebaseAuth.userChanges();
@@ -17,6 +20,8 @@ class AuthRepository {
     required String email,
     required String password,
   }) async {
+    log.d('signUp called with name: $name, email: $email, password: $password');
+
     try {
       final fb_auth.UserCredential userCredential =
           await firebaseAuth.createUserWithEmailAndPassword(
@@ -49,6 +54,8 @@ class AuthRepository {
     required String email,
     required String password,
   }) async {
+    log.d('signIn called with email: $email, password: $password');
+
     try {
       await firebaseAuth.signInWithEmailAndPassword(
         email: email,
@@ -70,6 +77,7 @@ class AuthRepository {
   }
 
   Future<void> singOut() async {
+    log.d('signOut called');
     firebaseAuth.signOut();
   }
 }
