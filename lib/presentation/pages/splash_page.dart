@@ -1,6 +1,8 @@
 import 'package:flutter/material.dart';
 
+/// Screen shown before app fully loads
 class SplashPage extends StatelessWidget {
+  /// Constructor
   const SplashPage({Key? key}) : super(key: key);
 
   @override

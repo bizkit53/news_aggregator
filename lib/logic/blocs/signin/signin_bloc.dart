@@ -1,4 +1,3 @@
-// ignore_for_file: public_member_api_docs, sort_constructors_first
 import 'package:bloc/bloc.dart';
 import 'package:equatable/equatable.dart';
 import 'package:logger/logger.dart';
@@ -11,10 +10,9 @@ import 'package:news_aggregator/models/custom_error.dart';
 part 'signin_event.dart';
 part 'signin_state.dart';
 
+/// In-app firebase signing in handler
 class SigninBloc extends Bloc<SigninEvent, SigninState> {
-  final AuthRepository authRepository = locator.get<AuthRepository>();
-  final Logger log = logger(SigninBloc);
-
+  /// Constructor
   SigninBloc() : super(const SigninInitial()) {
     on<SubmitSigninEvent>(
       (event, emit) async {
@@ -36,4 +34,10 @@ class SigninBloc extends Bloc<SigninEvent, SigninState> {
       },
     );
   }
+
+  /// Authorization handler injection
+  final AuthRepository authRepository = locator.get<AuthRepository>();
+
+  /// Log style customizer
+  final Logger log = logger(SigninBloc);
 }

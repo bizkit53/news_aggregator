@@ -1,6 +1,8 @@
 import 'package:flutter/material.dart';
 
+/// Default screen of the app
 class HomePage extends StatefulWidget {
+  /// Constructor
   const HomePage({Key? key}) : super(key: key);
 
   @override

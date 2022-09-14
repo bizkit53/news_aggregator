@@ -1,12 +1,8 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:equatable/equatable.dart';
 
-// ignore_for_file: public_member_api_docs, sort_constructors_first
+// ignore_for_file: public_member_api_docs
 class User extends Equatable {
-  final String id;
-  final String name;
-  final String email;
-  final List<String> savedUrls;
   const User({
     required this.id,
     required this.name,
@@ -19,9 +15,9 @@ class User extends Equatable {
 
     return User(
       id: userDoc.id,
-      name: userData!['name'],
-      email: userData['email'],
-      savedUrls: userData['savedUrls'],
+      name: userData!['name'] as String,
+      email: userData['email'] as String,
+      savedUrls: userData['savedUrls'] as List<String>,
     );
   }
 
@@ -33,6 +29,11 @@ class User extends Equatable {
       savedUrls: [''],
     );
   }
+
+  final String id;
+  final String name;
+  final String email;
+  final List<String> savedUrls;
 
   @override
   List<Object> get props => [id, name, email, savedUrls];

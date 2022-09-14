@@ -9,10 +9,9 @@ import 'package:news_aggregator/models/custom_error.dart';
 part 'signup_event.dart';
 part 'signup_state.dart';
 
+/// In-app firebase signing up handler
 class SignupBloc extends Bloc<SignupEvent, SignupState> {
-  final AuthRepository authRepository = locator.get<AuthRepository>();
-  final Logger log = logger(SignupBloc);
-
+  /// Constructor
   SignupBloc() : super(const SignupInitial()) {
     on<SubmitSignupEvent>(
       (event, emit) async {
@@ -21,7 +20,10 @@ class SignupBloc extends Bloc<SignupEvent, SignupState> {
 
         try {
           await authRepository.signUp(
-              name: event.name, email: event.email, password: event.password);
+            name: event.name,
+            email: event.email,
+            password: event.password,
+          );
 
           log.i('$SignupSuccess emitted');
           emit(const SignupSuccess());
@@ -32,4 +34,10 @@ class SignupBloc extends Bloc<SignupEvent, SignupState> {
       },
     );
   }
+
+  /// Authorization handler injection
+  final AuthRepository authRepository = locator.get<AuthRepository>();
+
+  /// Log style customizer
+  final Logger log = logger(SignupBloc);
 }
