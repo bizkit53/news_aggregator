@@ -1,3 +1,5 @@
+// ignore_for_file: public_member_api_docs
+
 part of 'auth_bloc.dart';
 
 abstract class AuthEvent extends Equatable {
@@ -8,9 +10,8 @@ abstract class AuthEvent extends Equatable {
 }
 
 class AuthStateChangedEvent extends AuthEvent {
-  final fb_auth.User? user;
-
   const AuthStateChangedEvent({this.user});
+  final fb_auth.User? user;
 }
 
 class SignOutEvent extends AuthEvent {}

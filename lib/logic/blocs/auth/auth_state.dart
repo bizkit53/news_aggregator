@@ -1,12 +1,12 @@
-// ignore_for_file: public_member_api_docs, sort_constructors_first
+// ignore_for_file: public_member_api_docs
 part of 'auth_bloc.dart';
 
 class AuthState extends Equatable {
-  final fb_auth.User? user;
-
   const AuthState({
     this.user,
   });
+
+  final fb_auth.User? user;
 
   @override
   List<Object> get props => [];
