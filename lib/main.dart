@@ -4,6 +4,7 @@ import 'package:news_aggregator/constans/routes.dart';
 import 'package:news_aggregator/firebase_options.dart';
 import 'package:news_aggregator/logic/utils/injector.dart';
 import 'package:news_aggregator/logic/utils/route_generator.dart';
+import 'package:responsive_framework/responsive_framework.dart';
 
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
@@ -26,6 +27,16 @@ class MyApp extends StatelessWidget {
       theme: ThemeData.light(),
       initialRoute: splashRoute,
       onGenerateRoute: RouteGenerator.generateRoute,
+      builder: (context, child) => ResponsiveWrapper.builder(
+        child,
+        defaultScale: true,
+        breakpoints: const [
+          ResponsiveBreakpoint.resize(350, name: MOBILE),
+          ResponsiveBreakpoint.autoScale(600, name: TABLET),
+          ResponsiveBreakpoint.resize(800, name: DESKTOP),
+          ResponsiveBreakpoint.autoScale(1700, name: 'XL'),
+        ],
+      ),
     );
   }
 }
