@@ -1,4 +1,6 @@
+import 'package:device_preview/device_preview.dart';
 import 'package:firebase_core/firebase_core.dart';
+import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:news_aggregator/constans/routes.dart';
 import 'package:news_aggregator/firebase_options.dart';
@@ -12,7 +14,13 @@ void main() async {
     options: DefaultFirebaseOptions.currentPlatform,
   );
   injectorSetup();
-  runApp(const MyApp());
+  runApp(
+    DevicePreview(
+      // Custom app viewer runs only in web with debug or profile mode
+      enabled: !kReleaseMode && kIsWeb,
+      builder: (context) => const MyApp(),
+    ),
+  );
 }
 
 /// Root of the app
@@ -23,12 +31,15 @@ class MyApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
+      useInheritedMediaQuery: true,
+      locale: DevicePreview.locale(context),
       debugShowCheckedModeBanner: false,
       theme: ThemeData.light(),
       initialRoute: splashRoute,
       onGenerateRoute: RouteGenerator.generateRoute,
       builder: (context, child) => ResponsiveWrapper.builder(
-        child,
+        // Device preview is for quick check app look on diffrent screens
+        DevicePreview.appBuilder(context, child),
         defaultScale: true,
         breakpoints: const [
           ResponsiveBreakpoint.resize(350, name: MOBILE),
