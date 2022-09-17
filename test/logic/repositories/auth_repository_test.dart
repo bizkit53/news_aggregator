@@ -126,4 +126,21 @@ void main() async {
       expect(usersCount, 0);
     });
   });
+
+  group('signOut', () {
+    test('successful', () async {
+      mockFirebaseAuth = MockFirebaseAuth();
+      setUpRepository();
+      await authRepository.signIn(
+        email: 'bob@somedomain.com',
+        password: 'password',
+      );
+
+      expect(mockFirebaseAuth.currentUser, isA<MockUser>());
+
+      await authRepository.singOut();
+
+      expect(mockFirebaseAuth.currentUser, null);
+    });
+  });
 }
