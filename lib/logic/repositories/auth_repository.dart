@@ -1,27 +1,33 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart' as fb_auth;
+import 'package:injectable/injectable.dart';
 import 'package:logger/logger.dart';
-import 'package:news_aggregator/constans/db_constants.dart';
-import 'package:news_aggregator/logic/utils/injector.dart';
 import 'package:news_aggregator/logic/utils/logger.dart';
 import 'package:news_aggregator/models/custom_error.dart';
 
 /// External firebase interaction handler
+@injectable
 class AuthRepository {
   /// Constructor
-  AuthRepository();
+  AuthRepository({
+    @factoryParam required this.firebaseFirestore,
+    @factoryParam required this.firebaseAuth,
+  });
 
   /// Firestore instance injection
-  final FirebaseFirestore firebaseFirestore = locator.get<FirebaseFirestore>();
+  final FirebaseFirestore firebaseFirestore;
 
   /// FirebaseAuth instance injection
-  final fb_auth.FirebaseAuth firebaseAuth = locator.get<fb_auth.FirebaseAuth>();
+  final fb_auth.FirebaseAuth firebaseAuth;
 
   /// Log style customizer
   final Logger log = logger(AuthRepository);
 
   /// External firebase user changes stream listener
   Stream<fb_auth.User?> get user => firebaseAuth.userChanges();
+
+  /// Firestore users collection reference variable
+  late final usersRef = firebaseFirestore.collection('users');
 
   /// Method for firebase user creation and signing in
   Future<void> signUp({

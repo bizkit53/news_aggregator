@@ -1,6 +1,7 @@
 import 'dart:async';
 
 import 'package:bloc/bloc.dart';
+import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:equatable/equatable.dart';
 import 'package:firebase_auth/firebase_auth.dart' as fb_auth;
 import 'package:logger/logger.dart';
@@ -48,7 +49,10 @@ class AuthBloc extends Bloc<AuthEvent, AuthState> {
   late final StreamSubscription<dynamic> authSubscription;
 
   /// Authorization handler injection
-  final AuthRepository authRepository = locator.get<AuthRepository>();
+  final AuthRepository authRepository = locator.get<AuthRepository>(
+    param1: locator.get<FirebaseFirestore>(),
+    param2: locator.get<fb_auth.FirebaseAuth>(),
+  );
 
   /// Log style customizer
   final Logger log = logger(AuthBloc);
