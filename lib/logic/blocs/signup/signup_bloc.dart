@@ -1,10 +1,7 @@
 import 'package:bloc/bloc.dart';
-import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:equatable/equatable.dart';
-import 'package:firebase_auth/firebase_auth.dart' as fb_auth;
 import 'package:logger/logger.dart';
 import 'package:news_aggregator/logic/repositories/auth_repository.dart';
-import 'package:news_aggregator/logic/utils/injector.dart';
 import 'package:news_aggregator/logic/utils/logger.dart';
 import 'package:news_aggregator/models/custom_error.dart';
 
@@ -14,7 +11,7 @@ part 'signup_state.dart';
 /// In-app firebase signing up handler
 class SignupBloc extends Bloc<SignupEvent, SignupState> {
   /// Constructor
-  SignupBloc() : super(const SignupInitial()) {
+  SignupBloc({required this.authRepository}) : super(const SignupInitial()) {
     on<SubmitSignupEvent>(
       (event, emit) async {
         log.i('$SubmitSignupEvent called');
@@ -38,10 +35,7 @@ class SignupBloc extends Bloc<SignupEvent, SignupState> {
   }
 
   /// Authorization handler injection
-  final AuthRepository authRepository = locator.get<AuthRepository>(
-    param1: locator.get<FirebaseFirestore>(),
-    param2: locator.get<fb_auth.FirebaseAuth>(),
-  );
+  final AuthRepository authRepository;
 
   /// Log style customizer
   final Logger log = logger(SignupBloc);
