@@ -1,5 +1,5 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
-import 'package:firebase_auth/firebase_auth.dart' as fb_auth;
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:injectable/injectable.dart';
 import 'package:logger/logger.dart';
 import 'package:news_aggregator/logic/utils/logger.dart';
@@ -18,13 +18,13 @@ class AuthRepository {
   final FirebaseFirestore firebaseFirestore;
 
   /// FirebaseAuth instance injection
-  final fb_auth.FirebaseAuth firebaseAuth;
+  final FirebaseAuth firebaseAuth;
 
   /// Log style customizer
   final Logger log = logger(AuthRepository);
 
   /// External firebase user changes stream listener
-  Stream<fb_auth.User?> get user => firebaseAuth.userChanges();
+  Stream<User?> get user => firebaseAuth.userChanges();
 
   /// Firestore users collection reference variable
   late final usersRef = firebaseFirestore.collection('users');
@@ -38,7 +38,7 @@ class AuthRepository {
     log.d('signUp called with name: $name, email: $email, password: $password');
 
     try {
-      final fb_auth.UserCredential userCredential =
+      final UserCredential userCredential =
           await firebaseAuth.createUserWithEmailAndPassword(
         email: email,
         password: password,
@@ -50,7 +50,7 @@ class AuthRepository {
         'name': name,
         'email': email,
       });
-    } on fb_auth.FirebaseAuthException catch (e) {
+    } on FirebaseAuthException catch (e) {
       throw CustomError(
         code: e.code,
         message: e.message!,
@@ -77,7 +77,7 @@ class AuthRepository {
         email: email,
         password: password,
       );
-    } on fb_auth.FirebaseAuthException catch (e) {
+    } on FirebaseAuthException catch (e) {
       throw CustomError(
         code: e.code,
         message: e.message!,

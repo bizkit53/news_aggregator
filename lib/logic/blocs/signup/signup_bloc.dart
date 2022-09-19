@@ -34,7 +34,7 @@ class SignupBloc extends Bloc<SignupEvent, SignupState> {
     );
   }
 
-  /// Authorization handler injection
+  /// Authorization Firebase handler
   final AuthRepository authRepository;
 
   /// Log style customizer

@@ -1,5 +1,5 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
-import 'package:firebase_auth/firebase_auth.dart' as fb_auth;
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:news_aggregator/logic/blocs/auth/auth_bloc.dart';
@@ -24,7 +24,7 @@ class BlocInjector extends StatelessWidget {
     return RepositoryProvider(
       create: (context) => locator.get<AuthRepository>(
         param1: locator.get<FirebaseFirestore>(),
-        param2: locator.get<fb_auth.FirebaseAuth>(),
+        param2: locator.get<FirebaseAuth>(),
       ),
       child: MultiBlocProvider(
         providers: [

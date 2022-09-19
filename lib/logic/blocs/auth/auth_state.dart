@@ -6,7 +6,7 @@ class AuthState extends Equatable {
     this.user,
   });
 
-  final fb_auth.User? user;
+  final User? user;
 
   @override
   List<Object> get props => [];
@@ -17,7 +17,7 @@ class AuthInitialState extends AuthState {
 }
 
 class AuthenticatedState extends AuthState {
-  const AuthenticatedState({fb_auth.User? user}) : super(user: user);
+  const AuthenticatedState({User? user}) : super(user: user);
 }
 
 class UnauthenticatedState extends AuthState {
