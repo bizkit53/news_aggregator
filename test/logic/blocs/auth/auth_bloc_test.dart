@@ -15,7 +15,17 @@ void main() {
   final MockAuthRepository mockAuthRepository = MockAuthRepository();
   final MockUser mockUser = MockUser();
 
-  group('auth state changed', () {
+  group('AuthBloc - auth state changed:', () {
+    test('initial state is correct', () {
+      when(mockAuthRepository.user).thenAnswer(
+        (realInvocation) => Stream<User?>.fromIterable([null]),
+      );
+      expect(
+        AuthBloc(authRepository: mockAuthRepository).state,
+        const AuthInitialState(),
+      );
+    });
+
     blocTest<AuthBloc, AuthState>(
       'unauthorized when no events called',
       build: () {
@@ -92,7 +102,7 @@ void main() {
     );
   });
 
-  group('sign out', () {
+  group('AuthBloc - sign out:', () {
     blocTest<AuthBloc, AuthState>(
       'sign out from signed in',
       build: () {
