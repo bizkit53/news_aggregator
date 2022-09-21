@@ -39,7 +39,7 @@ void main() async {
     );
   }
 
-  group('signIn', () {
+  group('AuthRepository - sign in:', () {
     test('successful', () async {
       mockFirebaseAuth = MockFirebaseAuth();
       setUpRepository();
@@ -75,7 +75,7 @@ void main() async {
     });
   });
 
-  group('signUp', () {
+  group('AuthRepository - sign up:', () {
     int usersCount;
     test('successful', () async {
       mockFirebaseAuth = MockFirebaseAuth();
@@ -127,7 +127,7 @@ void main() async {
     });
   });
 
-  group('signOut', () {
+  group('AuthRepository - sign out:', () {
     test('successful', () async {
       mockFirebaseAuth = MockFirebaseAuth();
       setUpRepository();
