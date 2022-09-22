@@ -1,26 +1,44 @@
-// ignore_for_file: public_member_api_docs, sort_constructors_first
 import 'package:cloud_firestore/cloud_firestore.dart';
-import 'package:firebase_auth/firebase_auth.dart' as fb_auth;
-import 'package:news_aggregator/constans/db_constants.dart';
+import 'package:firebase_auth/firebase_auth.dart';
+import 'package:injectable/injectable.dart';
+import 'package:logger/logger.dart';
+import 'package:news_aggregator/logic/utils/logger.dart';
 import 'package:news_aggregator/models/custom_error.dart';
 
+/// External firebase interaction handler
+@injectable
 class AuthRepository {
-  final FirebaseFirestore firebaseFirestore;
-  final fb_auth.FirebaseAuth firebaseAuth;
+  /// Constructor
   AuthRepository({
-    required this.firebaseFirestore,
-    required this.firebaseAuth,
+    @factoryParam required this.firebaseFirestore,
+    @factoryParam required this.firebaseAuth,
   });
 
-  Stream<fb_auth.User?> get user => firebaseAuth.userChanges();
+  /// Firestore instance injection
+  final FirebaseFirestore firebaseFirestore;
 
+  /// FirebaseAuth instance injection
+  final FirebaseAuth firebaseAuth;
+
+  /// Log style customizer
+  final Logger log = logger(AuthRepository);
+
+  /// External firebase user changes stream listener
+  Stream<User?> get user => firebaseAuth.userChanges();
+
+  /// Firestore users collection reference variable
+  late final usersRef = firebaseFirestore.collection('users');
+
+  /// Method for firebase user creation and signing in
   Future<void> signUp({
     required String name,
     required String email,
     required String password,
   }) async {
+    log.d('signUp called with name: $name, email: $email, password: $password');
+
     try {
-      final fb_auth.UserCredential userCredential =
+      final UserCredential userCredential =
           await firebaseAuth.createUserWithEmailAndPassword(
         email: email,
         password: password,
@@ -32,7 +50,7 @@ class AuthRepository {
         'name': name,
         'email': email,
       });
-    } on fb_auth.FirebaseAuthException catch (e) {
+    } on FirebaseAuthException catch (e) {
       throw CustomError(
         code: e.code,
         message: e.message!,
@@ -47,16 +65,19 @@ class AuthRepository {
     }
   }
 
+  /// Firebase email and password signing in handler
   Future<void> signIn({
     required String email,
     required String password,
   }) async {
+    log.d('signIn called with email: $email, password: $password');
+
     try {
       await firebaseAuth.signInWithEmailAndPassword(
         email: email,
         password: password,
       );
-    } on fb_auth.FirebaseAuthException catch (e) {
+    } on FirebaseAuthException catch (e) {
       throw CustomError(
         code: e.code,
         message: e.message!,
@@ -71,7 +92,9 @@ class AuthRepository {
     }
   }
 
+  /// Sign out from firebase session
   Future<void> singOut() async {
-    firebaseAuth.signOut();
+    log.d('signOut called');
+    await firebaseAuth.signOut();
   }
 }

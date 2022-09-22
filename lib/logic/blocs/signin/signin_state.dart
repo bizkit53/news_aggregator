@@ -1,12 +1,13 @@
-// ignore_for_file: public_member_api_docs, sort_constructors_first
+// ignore_for_file: public_member_api_docs
 
 part of 'signin_bloc.dart';
 
 abstract class SigninState extends Equatable {
-  final CustomError error;
   const SigninState(
     this.error,
   );
+
+  final CustomError error;
 
   @override
   List<Object> get props => [error];
