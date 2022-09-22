@@ -1,7 +1,8 @@
 import 'package:device_preview/device_preview.dart';
 import 'package:firebase_core/firebase_core.dart';
-import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
+import 'package:news_aggregator/constans/environment.dart';
+import 'package:news_aggregator/constans/responsive_breakpoints.dart';
 import 'package:news_aggregator/constans/routes.dart';
 import 'package:news_aggregator/firebase_options.dart';
 import 'package:news_aggregator/logic/services/config_reader/config_reader.dart';
@@ -20,8 +21,7 @@ Future<void> mainCommon(String env) async {
   injectorSetup();
   runApp(
     DevicePreview(
-      // Custom app viewer runs only in web with debug or profile mode
-      enabled: !kReleaseMode && kIsWeb,
+      enabled: isDevicePreviewEnabled,
       builder: (context) => const MyApp(),
     ),
   );
@@ -41,17 +41,14 @@ class MyApp extends StatelessWidget {
       theme: ThemeData.light(),
       initialRoute: splashRoute,
       onGenerateRoute: RouteGenerator.generateRoute,
-      builder: (context, child) => ResponsiveWrapper.builder(
-        // Device preview is for quick check app look on diffrent screens
-        DevicePreview.appBuilder(context, child),
-        defaultScale: true,
-        breakpoints: const [
-          ResponsiveBreakpoint.resize(350, name: MOBILE),
-          ResponsiveBreakpoint.autoScale(600, name: TABLET),
-          ResponsiveBreakpoint.resize(800, name: DESKTOP),
-          ResponsiveBreakpoint.autoScale(1700, name: 'XL'),
-        ],
-      ),
+      builder: (context, child) {
+        return ResponsiveWrapper.builder(
+          // Device preview is for quick check app look on diffrent screens
+          DevicePreview.appBuilder(context, child),
+          defaultScale: true,
+          breakpoints: responsiveBreakpoints,
+        );
+      },
     );
   }
 }
