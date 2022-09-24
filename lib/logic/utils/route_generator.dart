@@ -15,8 +15,8 @@ class RouteGenerator {
     switch (settings.name) {
       case splashRoute:
         return MaterialPageRoute(
-          builder: (context) => const BlocInjector(
-            child: SplashPage(),
+          builder: (context) => BlocInjector(
+            child: const SplashPage(),
           ),
         );
 
@@ -28,8 +28,8 @@ class RouteGenerator {
   static Route<dynamic> _errorRoute() {
     return MaterialPageRoute(
       builder: (context) {
-        return const BlocInjector(
-          child: Scaffold(
+        return BlocInjector(
+          child: const Scaffold(
             body: Center(
               child: Text('Page not found!'),
             ),
