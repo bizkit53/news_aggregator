@@ -25,7 +25,7 @@ class NewsNetworkService {
   Dio? apiHandler;
 
   /// Log style customizer
-  final Logger log = logger(NewsNetworkService);
+  final Logger _log = logger(NewsNetworkService);
 
   final String _topNewsEndpoint = 'v1/news/top';
 
@@ -58,7 +58,7 @@ class NewsNetworkService {
   Future<Response<dynamic>> _getNews(String path) {
     // TODO(bizkit53): replace query placeholder
     apiHandler!.options.queryParameters['categories'] = '';
-    log.d('getNews: $path');
+    _log.d('getNews: $path');
     return apiHandler!.get(path);
   }
 
@@ -67,7 +67,7 @@ class NewsNetworkService {
     String searchPattern,
   ) {
     apiHandler!.options.queryParameters['search'] = searchPattern;
-    log.d('getSearchedNews: $path with pattern $searchPattern');
+    _log.d('getSearchedNews: $path with pattern $searchPattern');
     return apiHandler!.get(path);
   }
 }

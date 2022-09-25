@@ -14,7 +14,7 @@ class SigninBloc extends Bloc<SigninEvent, SigninState> {
   SigninBloc({required this.authRepository}) : super(const SigninInitial()) {
     on<SubmitSigninEvent>(
       (event, emit) async {
-        log.i('$SubmitSigninEvent called');
+        _log.i('$SubmitSigninEvent called');
         emit(const SigninSubmitted());
 
         try {
@@ -23,10 +23,10 @@ class SigninBloc extends Bloc<SigninEvent, SigninState> {
             password: event.password,
           );
 
-          log.i('$SigninSuccess emitted');
+          _log.i('$SigninSuccess emitted');
           emit(const SigninSuccess());
         } on CustomError catch (e) {
-          log.e('$SigninFailed emitted');
+          _log.w('$SigninFailed emitted');
           emit(SigninFailed(e));
         }
       },
@@ -37,5 +37,5 @@ class SigninBloc extends Bloc<SigninEvent, SigninState> {
   final AuthRepository authRepository;
 
   /// Log style customizer
-  final Logger log = logger(SigninBloc);
+  final Logger _log = logger(SigninBloc);
 }

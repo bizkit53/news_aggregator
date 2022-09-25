@@ -20,14 +20,14 @@ class AuthRepository {
   /// FirebaseAuth instance injection
   final FirebaseAuth firebaseAuth;
 
-  /// Log style customizer
-  final Logger log = logger(AuthRepository);
-
   /// External firebase user changes stream listener
   Stream<User?> get user => firebaseAuth.userChanges();
 
+  /// Log style customizer
+  final Logger _log = logger(AuthRepository);
+
   /// Firestore users collection reference variable
-  late final usersRef = firebaseFirestore.collection('users');
+  late final _usersRef = firebaseFirestore.collection('users');
 
   /// Method for firebase user creation and signing in
   Future<void> signUp({
@@ -35,9 +35,10 @@ class AuthRepository {
     required String email,
     required String password,
   }) async {
-    log.d('signUp called with name: $name, email: $email, password: $password');
+    _log.d(
+        'signUp called with name: $name, email: $email, password: $password');
 
-    _customTryCatch(
+    await _customTryCatch(
       () async {
         final UserCredential userCredential =
             await firebaseAuth.createUserWithEmailAndPassword(
@@ -47,7 +48,7 @@ class AuthRepository {
 
         final singedInUser = userCredential.user!;
 
-        await usersRef.doc(singedInUser.uid).set({
+        await _usersRef.doc(singedInUser.uid).set({
           'name': name,
           'email': email,
         });
@@ -60,9 +61,9 @@ class AuthRepository {
     required String email,
     required String password,
   }) async {
-    log.d('signIn called with email: $email, password: $password');
+    _log.d('signIn called with email: $email, password: $password');
 
-    _customTryCatch(
+    await _customTryCatch(
       () async {
         await firebaseAuth.signInWithEmailAndPassword(
           email: email,
@@ -74,14 +75,14 @@ class AuthRepository {
 
   /// Sign out from firebase session
   Future<void> singOut() async {
-    log.d('signOut called');
+    _log.d('signOut called');
     await firebaseAuth.signOut();
   }
 
   /// Helper method to avoid duplicating exception catching
-  void _customTryCatch(void Function() function) {
+  Future<void> _customTryCatch(Future<void> Function() function) async {
     try {
-      function.call();
+      await function.call();
     } on FirebaseAuthException catch (e) {
       throw CustomError(
         code: e.code,
