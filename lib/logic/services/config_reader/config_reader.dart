@@ -25,4 +25,7 @@ abstract class ConfigReader {
 
   /// Retain API URL from a config file
   static String getApiURL() => _config['apiURL'] as String;
+
+  /// Retain API token from a config file
+  static String getApiToken() => _config['apiToken'] as String;
 }
