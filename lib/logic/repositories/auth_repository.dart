@@ -37,32 +37,22 @@ class AuthRepository {
   }) async {
     log.d('signUp called with name: $name, email: $email, password: $password');
 
-    try {
-      final UserCredential userCredential =
-          await firebaseAuth.createUserWithEmailAndPassword(
-        email: email,
-        password: password,
-      );
+    _customTryCatch(
+      () async {
+        final UserCredential userCredential =
+            await firebaseAuth.createUserWithEmailAndPassword(
+          email: email,
+          password: password,
+        );
 
-      final singedInUser = userCredential.user!;
+        final singedInUser = userCredential.user!;
 
-      await usersRef.doc(singedInUser.uid).set({
-        'name': name,
-        'email': email,
-      });
-    } on FirebaseAuthException catch (e) {
-      throw CustomError(
-        code: e.code,
-        message: e.message!,
-        plugin: e.plugin,
-      );
-    } catch (e) {
-      throw CustomError(
-        code: 'Exception',
-        message: e.toString(),
-        plugin: 'flutter_error/server_error',
-      );
-    }
+        await usersRef.doc(singedInUser.uid).set({
+          'name': name,
+          'email': email,
+        });
+      },
+    );
   }
 
   /// Firebase email and password signing in handler
@@ -72,11 +62,26 @@ class AuthRepository {
   }) async {
     log.d('signIn called with email: $email, password: $password');
 
+    _customTryCatch(
+      () async {
+        await firebaseAuth.signInWithEmailAndPassword(
+          email: email,
+          password: password,
+        );
+      },
+    );
+  }
+
+  /// Sign out from firebase session
+  Future<void> singOut() async {
+    log.d('signOut called');
+    await firebaseAuth.signOut();
+  }
+
+  /// Helper method to avoid duplicating exception catching
+  void _customTryCatch(void Function() function) {
     try {
-      await firebaseAuth.signInWithEmailAndPassword(
-        email: email,
-        password: password,
-      );
+      function.call();
     } on FirebaseAuthException catch (e) {
       throw CustomError(
         code: e.code,
@@ -90,11 +95,5 @@ class AuthRepository {
         plugin: 'flutter_error/server_error',
       );
     }
-  }
-
-  /// Sign out from firebase session
-  Future<void> singOut() async {
-    log.d('signOut called');
-    await firebaseAuth.signOut();
   }
 }
