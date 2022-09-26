@@ -31,8 +31,13 @@ class NewsNetworkService {
 
   /// Send request to get top news with query parameters specified by user
   Future<Response<dynamic>> getTopNews({required int page}) {
-    _setCommonParameters(page: page);
-    return _getNews(_topNewsEndpoint);
+    try {
+      _setCommonParameters(page: page);
+      return _getNews(_topNewsEndpoint);
+    } on DioError catch (e) {
+      _logError(e);
+      rethrow;
+    }
   }
 
   /// Send request to get top news based on
@@ -40,8 +45,13 @@ class NewsNetworkService {
     required int page,
     required String searchPattern,
   }) {
-    _setCommonParameters(page: page);
-    return _getSearchedNews(_topNewsEndpoint, searchPattern);
+    try {
+      _setCommonParameters(page: page);
+      return _getSearchedNews(_topNewsEndpoint, searchPattern);
+    } on DioError catch (e) {
+      _logError(e);
+      rethrow;
+    }
   }
 
   void _setCommonParameters({required int page}) {
@@ -69,5 +79,21 @@ class NewsNetworkService {
     apiHandler!.options.queryParameters['search'] = searchPattern;
     _log.d('getSearchedNews: $path with pattern $searchPattern');
     return apiHandler!.get(path);
+  }
+
+  void _logError(DioError e) {
+    // The request was made and the server responded with a bad status code
+    if (e.response != null) {
+      _log
+        ..e(e.response!.data)
+        ..e(e.response!.headers)
+        ..e(e.response!.requestOptions);
+    } else {
+      // Something happened in setting up
+      // or sending the request that triggered an Error
+      _log
+        ..e(e.requestOptions)
+        ..e(e.message);
+    }
   }
 }

@@ -36,7 +36,8 @@ class AuthRepository {
     required String password,
   }) async {
     _log.d(
-        'signUp called with name: $name, email: $email, password: $password');
+      'signUp called with name: $name, email: $email, password: $password',
+    );
 
     await _customTryCatch(
       () async {
