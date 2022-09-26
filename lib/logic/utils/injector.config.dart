@@ -12,6 +12,7 @@ import 'package:get_it/get_it.dart' as _i1;
 import 'package:injectable/injectable.dart' as _i2;
 
 import '../repositories/auth_repository.dart' as _i3;
+import '../repositories/news_repository.dart' as _i8;
 import '../services/network_services/news_network_service.dart'
     as _i6; // ignore_for_file: unnecessary_lambdas
 
@@ -40,5 +41,10 @@ _i1.GetIt $initGetIt(
     _,
   ) =>
       _i6.NewsNetworkService(apiHandler: apiHandler));
+  gh.factoryParam<_i8.NewsRepository, _i6.NewsNetworkService, dynamic>((
+    newsNetworkService,
+    _,
+  ) =>
+      _i8.NewsRepository(newsNetworkService: newsNetworkService));
   return get;
 }
