@@ -16,6 +16,7 @@ void main() async {
   await ConfigReader.initialize(Environment.dev);
 
   late String examplePath;
+  late String exampleSearchPattern;
   late BaseOptions baseOptions;
   late RequestOptions requestOptions;
   late MockDio mockDio;
@@ -31,6 +32,7 @@ void main() async {
 
   setUpAll(() {
     examplePath = 'v1/news/top';
+    exampleSearchPattern = 'England';
     requestOptions = RequestOptions(
       path: examplePath,
     );
@@ -256,6 +258,211 @@ void main() async {
 
       expect(
         () => newsNetworkService.getTopNews(page: 1),
+        throwsA(
+          predicate(
+            (e) =>
+                e is DioError &&
+                e.requestOptions == requestOptions &&
+                e.type == DioErrorType.other,
+          ),
+        ),
+      );
+
+      verify(mockDio.options).called(2);
+      verify(mockDio.get<dynamic>(examplePath)).called(1);
+      verifyNoMoreInteractions(mockDio);
+    });
+  });
+
+  group('NewsNetworkService - search news:', () {
+    test('successful', () async {
+      when(mockDio.get<dynamic>(examplePath)).thenAnswer(
+        (_) => _getFutureResponse(),
+      );
+      expect(
+        newsNetworkService.searchNews(
+          page: 1,
+          searchPattern: exampleSearchPattern,
+        ),
+        isA<Future<Response<dynamic>>>(),
+      );
+      expect(
+        await newsNetworkService.searchNews(
+          page: 1,
+          searchPattern: exampleSearchPattern,
+        ),
+        await _getFutureResponse(),
+      );
+
+      verify(mockDio.options).called(4);
+      verify(mockDio.get<dynamic>(examplePath)).called(2);
+      verifyNoMoreInteractions(mockDio);
+    });
+
+    test('failed - connect timeout', () {
+      when(
+        mockDio.get<dynamic>(examplePath),
+      ).thenThrow(
+        DioError(
+          requestOptions: requestOptions,
+          type: DioErrorType.connectTimeout,
+        ),
+      );
+
+      expect(
+        () => newsNetworkService.searchNews(
+          page: 1,
+          searchPattern: exampleSearchPattern,
+        ),
+        throwsA(
+          predicate(
+            (e) =>
+                e is DioError &&
+                e.requestOptions == requestOptions &&
+                e.type == DioErrorType.connectTimeout,
+          ),
+        ),
+      );
+
+      verify(mockDio.options).called(2);
+      verify(mockDio.get<dynamic>(examplePath)).called(1);
+      verifyNoMoreInteractions(mockDio);
+    });
+
+    test('failed - send timeout', () {
+      when(
+        mockDio.get<dynamic>(examplePath),
+      ).thenThrow(
+        DioError(
+          requestOptions: requestOptions,
+          type: DioErrorType.sendTimeout,
+        ),
+      );
+
+      expect(
+        () => newsNetworkService.searchNews(
+          page: 1,
+          searchPattern: exampleSearchPattern,
+        ),
+        throwsA(
+          predicate(
+            (e) =>
+                e is DioError &&
+                e.requestOptions == requestOptions &&
+                e.type == DioErrorType.sendTimeout,
+          ),
+        ),
+      );
+
+      verify(mockDio.options).called(2);
+      verify(mockDio.get<dynamic>(examplePath)).called(1);
+      verifyNoMoreInteractions(mockDio);
+    });
+
+    test('failed - receive timeout', () {
+      when(
+        mockDio.get<dynamic>(examplePath),
+      ).thenThrow(
+        DioError(
+          requestOptions: requestOptions,
+          type: DioErrorType.receiveTimeout,
+        ),
+      );
+
+      expect(
+        () => newsNetworkService.searchNews(
+          page: 1,
+          searchPattern: exampleSearchPattern,
+        ),
+        throwsA(
+          predicate(
+            (e) =>
+                e is DioError &&
+                e.requestOptions == requestOptions &&
+                e.type == DioErrorType.receiveTimeout,
+          ),
+        ),
+      );
+
+      verify(mockDio.options).called(2);
+      verify(mockDio.get<dynamic>(examplePath)).called(1);
+      verifyNoMoreInteractions(mockDio);
+    });
+
+    test('failed - request cancelled', () {
+      when(
+        mockDio.get<dynamic>(examplePath),
+      ).thenThrow(
+        DioError(
+          requestOptions: requestOptions,
+          type: DioErrorType.cancel,
+        ),
+      );
+
+      expect(
+        () => newsNetworkService.searchNews(
+          page: 1,
+          searchPattern: exampleSearchPattern,
+        ),
+        throwsA(
+          predicate(
+            (e) =>
+                e is DioError &&
+                e.requestOptions == requestOptions &&
+                e.type == DioErrorType.cancel,
+          ),
+        ),
+      );
+
+      verify(mockDio.options).called(2);
+      verify(mockDio.get<dynamic>(examplePath)).called(1);
+      verifyNoMoreInteractions(mockDio);
+    });
+
+    test('failed - bad response', () {
+      when(
+        mockDio.get<dynamic>(examplePath),
+      ).thenThrow(
+        DioError(
+          requestOptions: requestOptions,
+          type: DioErrorType.response,
+        ),
+      );
+
+      expect(
+        () => newsNetworkService.searchNews(
+          page: 1,
+          searchPattern: exampleSearchPattern,
+        ),
+        throwsA(
+          predicate(
+            (e) =>
+                e is DioError &&
+                e.requestOptions == requestOptions &&
+                e.type == DioErrorType.response,
+          ),
+        ),
+      );
+
+      verify(mockDio.options).called(2);
+      verify(mockDio.get<dynamic>(examplePath)).called(1);
+      verifyNoMoreInteractions(mockDio);
+    });
+
+    test('failed - default error', () {
+      when(
+        mockDio.get<dynamic>(examplePath),
+      ).thenThrow(
+        DioError(
+          requestOptions: requestOptions,
+        ),
+      );
+
+      expect(
+        () => newsNetworkService.searchNews(
+          page: 1,
+          searchPattern: exampleSearchPattern,
+        ),
         throwsA(
           predicate(
             (e) =>
