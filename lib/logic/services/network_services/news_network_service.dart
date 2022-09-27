@@ -85,15 +85,20 @@ class NewsNetworkService {
     // The request was made and the server responded with a bad status code
     if (e.response != null) {
       _log
-        ..e(e.response!.data)
-        ..e(e.response!.headers)
-        ..e(e.response!.requestOptions);
+        ..e('queryParams: ${e.response!.requestOptions.queryParameters}')
+        ..e('headers: ${e.response!.headers}')
+        ..e('statusCode: ${e.response!.statusCode}')
+        ..e('statusMessage: ${e.response!.statusMessage}')
+        ..e('errorType: ${e.type}')
+        ..e('data: ${e.response!.data}');
     } else {
       // Something happened in setting up
       // or sending the request that triggered an Error
       _log
-        ..e(e.requestOptions)
-        ..e(e.message);
+        ..e('queryParams: ${e.requestOptions.queryParameters}')
+        ..e('headers: ${e.requestOptions.headers}')
+        ..e('errorType: ${e.type}')
+        ..e('message: ${e.message}');
     }
   }
 }
