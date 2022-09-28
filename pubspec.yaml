@@ -46,3 +46,5 @@ flutter:
   generate: true
   assets:
     - config/
+    - test/logic/repositories/news_repository/
+

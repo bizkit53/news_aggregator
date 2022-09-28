@@ -1,0 +1,95 @@
+{
+    "meta": {
+        "found": 119985,
+        "returned": 5,
+        "limit": 5,
+        "page": 2
+    },
+    "data": [
+        {
+            "uuid": "4d5f1d44-2bdc-4374-9c9e-bac3e5a6b628",
+            "title": "Eriksen, un goal da favola: subito un goal nove mesi dopo la grande paura",
+            "description": "Christian Eriksen è protagonista di una vera e propria favola. Tornato in campo con la maglia della nazionale danese nove mesi dopo l'arresto cardiaco agli Eur...",
+            "keywords": "eriksen goal danimarca olanda, eriksen goal dopo arresto cardiaco, favola eriksen, eriksen goal favola danimarca olanda",
+            "snippet": "287 giorni fa aveva fatto tremare tutti agli Europei per il suo arresto cardiaco. Nel match contro la Finlandia, lo scorso 12 giugno, al 42'esimo del primo temp...",
+            "url": "https://www.today.it/sport/calcio/eriksen-goal-dopo-arresto-cardiaco.html",
+            "image_url": "https://www.today.it/~media/horizontal-hi/64748887468092/eriksen-ansa-2.jpg",
+            "language": "it",
+            "published_at": "2022-03-26T22:08:23.000000Z",
+            "source": "today.it",
+            "categories": [
+                "general"
+            ],
+            "relevance_score": 18.259146,
+            "locale": "it"
+        },
+        {
+            "uuid": "7f3e6e4d-ec44-422a-b19e-f784a430e2e7",
+            "title": "David Pastrnak's goal lifts Bruins over Jets",
+            "description": "David Pastrnak scored a power-play goal early in the third period to break a tie and lead the Boston Bruins to a 3-2 victory over the visiting Winnipeg Jets on?...",
+            "keywords": "",
+            "snippet": "This advertisement has not loaded yet, but your article continues below.\n\n\n\n\n\n\n\nShare this Story: David Pastrnak's goal lifts Bruins over Jets\n\nDavid Pastrnak's...",
+            "url": "https://nationalpost.com/pmn/sports-pmn/david-pastrnaks-goal-lifts-bruins-over-jets",
+            "image_url": "https://storage.googleapis.com/pmd-stage-northamerica-northeast1-dcs-static-files/9.2.3/websites/images/np/favicon-np.ico",
+            "language": "en",
+            "published_at": "2022-01-22T23:05:38.000000Z",
+            "source": "nationalpost.com",
+            "categories": [
+                "general"
+            ],
+            "relevance_score": 18.232414,
+            "locale": "ca"
+        },
+        {
+            "uuid": "2809707b-920b-4b4f-a549-3a5fb8ca830d",
+            "title": "David Pastrnak's goal lifts Bruins over Jets",
+            "description": "David Pastrnak scored a power-play goal early in the third period to break a tie and lead the Boston Bruins to a 3-2 victory over the visiting Winnipeg Jets on?...",
+            "keywords": "",
+            "snippet": "This advertisement has not loaded yet, but your article continues below.\n\n\n\n\n\n\n\nShare this Story: David Pastrnak's goal lifts Bruins over Jets\n\nDavid Pastrnak's...",
+            "url": "https://nationalpost.com/pmn/sports-pmn/david-pastrnaks-goal-lifts-bruins-over-jets-2",
+            "image_url": "https://storage.googleapis.com/pmd-stage-northamerica-northeast1-dcs-static-files/9.2.3/websites/images/np/favicon-np.ico",
+            "language": "en",
+            "published_at": "2022-01-23T03:45:20.000000Z",
+            "source": "nationalpost.com",
+            "categories": [
+                "general"
+            ],
+            "relevance_score": 18.232414,
+            "locale": "ca"
+        },
+        {
+            "uuid": "c1c55ab9-4d5b-465e-b3d3-a1d0addecf2b",
+            "title": "Ryan Hartman's goal helps Wild edge Lightning",
+            "description": "Ryan Hartman scored the go-ahead goal midway through the third period to lift the Minnesota Wild to a 4-2 win over the visiting Tampa Bay Lightning on Sunday…",
+            "keywords": "",
+            "snippet": "Corey Perry and Alex Killorn each scored for Tampa Bay, whose three-game winning streak came to an end.\n\nWe apologize, but this video has failed to load.\n\nNick ...",
+            "url": "https://nationalpost.com/pmn/sports-pmn/ryan-hartmans-goal-helps-wild-edge-lightning",
+            "image_url": "https://storage.googleapis.com/pmd-stage-northamerica-northeast1-dcs-static-files/8.5.1/websites/images/np/favicon-np.ico",
+            "language": "en",
+            "published_at": "2021-11-28T21:46:20.000000Z",
+            "source": "nationalpost.com",
+            "categories": [
+                "general"
+            ],
+            "relevance_score": 18.224312,
+            "locale": "ca"
+        },
+        {
+            "uuid": "1bfb229f-11ef-4431-b4bc-b52afb50e63f",
+            "title": "Ryan Hartman's goal helps Wild top Lightning",
+            "description": "Ryan Hartman scored the go-ahead goal midway through the third period to lift the Minnesota Wild to a 4-2 win over the visiting Tampa Bay Lightning on Sunday…",
+            "keywords": "",
+            "snippet": "Corey Perry and Alex Killorn each scored for Tampa Bay, whose three-game winning streak ended.\n\nWe apologize, but this video has failed to load.\n\nNick Bjugstad,...",
+            "url": "https://nationalpost.com/pmn/sports-pmn/ryan-hartmans-goal-helps-wild-top-lightning",
+            "image_url": "https://storage.googleapis.com/pmd-stage-northamerica-northeast1-dcs-static-files/8.5.1/websites/images/np/favicon-np.ico",
+            "language": "en",
+            "published_at": "2021-11-29T03:39:38.000000Z",
+            "source": "nationalpost.com",
+            "categories": [
+                "general"
+            ],
+            "relevance_score": 18.224312,
+            "locale": "ca"
+        }
+    ]
+}
