@@ -1,0 +1,95 @@
+{
+    "meta": {
+        "found": 119985,
+        "returned": 5,
+        "limit": 5,
+        "page": 1
+    },
+    "data": [
+        {
+            "uuid": "0cce5732-f5be-476c-8569-5c99265319b4",
+            "title": "GOAL! GOAL! GOAL! Peter Shalulile smashes Siyabonga Nomvethe’s goal mark",
+            "description": "Mamelodi Sundowns' star striker Peter Shalulile has entered the PSL history books after his three goals against Golden Arrows on Tuesday.",
+            "keywords": "",
+            "snippet": "Mamelodi Sundowns’ star striker Peter Shalulile has entered the PSL history books after his three goals against Golden Arrows on Tuesday. Photo: Samuel Shivam...",
+            "url": "https://www.thesouthafrican.com/sport/soccer/psl-south-africa/peter-shalulile-smashes-siyabonga-nomvethe-psl-goal-mark-mamelodi-sundowns-golden-arrows-exclusive-trending-latest-breaking-team-news-result-hatr-trick/",
+            "image_url": "http://www.thesouthafrican.com/wp-content/uploads/2022/04/Peter-Shalulile-8-scaled.jpg",
+            "language": "en",
+            "published_at": "2022-04-12T14:52:00.000000Z",
+            "source": "thesouthafrican.com",
+            "categories": [
+                "general"
+            ],
+            "relevance_score": 20.837915,
+            "locale": "za"
+        },
+        {
+            "uuid": "36bf4e5e-f343-4390-ba43-8102d79da6ad",
+            "title": "'Boca scored a goal, took too much award': Gallardo, on Villa's goal",
+            "description": "Although River Plate reached the rival portico on more occasions, the lack of efficiency in defining it condemned it. On the contrary, Sebastián Villa took adv...",
+            "keywords": "",
+            "snippet": "Colombiano Sebastián Villa celebra tras anotar el gol con el que Boca Juniors venció a River Plate en Argentina. Estadio Monumental Antonio Vespucio Liberti, ...",
+            "url": "https://www.infobae.com/en/2022/03/21/boca-scored-a-goal-took-too-much-award-gallardo-on-villas-goal/",
+            "image_url": "https://www.infobae.com/new-resizer/t-Z0_H3Du2TN6eVkS9Ft66ZvSS8=/1200x628/filters:format(webp):quality(85)//cloudfront-us-east-1.images.arcpublishing.com/infobae/46LW4OI5YNGZBEMWOAND7IQAJ4.jpg",
+            "language": "es",
+            "published_at": "2022-03-21T03:35:40.000000Z",
+            "source": "infobae.com",
+            "categories": [
+                "general"
+            ],
+            "relevance_score": 18.846851,
+            "locale": "ar"
+        },
+        {
+            "uuid": "0fe523c7-1233-4459-972d-6a153c3dc286",
+            "title": "Commonwealth Games: England goal defence Layla Guscoth has run-in with goal post",
+            "description": "Watch as England's goal defence Layla Guscoth flies into the goal post whilst attempting an interception, prompting a change of equipment during their semi-fina...",
+            "keywords": "",
+            "snippet": "Watch as England's goal defence Layla Guscoth flies into the goal post whilst attempting an interception, prompting a change of equipment during their semi-fina...",
+            "url": "https://www.bbc.co.uk/sport/av/commonwealth-games/62450214?at_medium=RSS&at_campaign=KARANGA",
+            "image_url": "https://ichef.bbci.co.uk/news/1024/cpsprodpb/49FE/production/_126224981_p0crjbmf.jpg",
+            "language": "en",
+            "published_at": "2022-08-06T14:12:30.000000Z",
+            "source": "bbc.co.uk",
+            "categories": [
+                "sports"
+            ],
+            "relevance_score": 18.679916,
+            "locale": "gb"
+        },
+        {
+            "uuid": "9024573f-572d-4b9f-8d5a-a43557909b78",
+            "title": "Think Investor: Rebalancing goal-based investments",
+            "description": "After setting up an SIP, you may have to annually rebalance your portfolio",
+            "keywords": "",
+            "snippet": "After setting up an SIP, you may have to annually rebalance your portfolio\n\nAfter setting up an SIP, you may have to annually rebalance your portfolio\n\nYou shou...",
+            "url": "https://www.thehindu.com/business/Industry/think-investor-rebalancing-goal-based-investments/article65263177.ece",
+            "image_url": "https://www.thehindu.com/business/3wzefs/article65263179.ece/alternates/LANDSCAPE_615/TH28_BU_BALANCE.jpg",
+            "language": "en",
+            "published_at": "2022-03-27T09:12:01.000000Z",
+            "source": "thehindu.com",
+            "categories": [
+                "general"
+            ],
+            "relevance_score": 18.523693,
+            "locale": "in"
+        },
+        {
+            "uuid": "192a5410-a8c1-48f8-9a46-fe44629db5b0",
+            "title": "Pirates edge SuperSport in five-goal thriller",
+            "description": "A late goal by Goodman Mosele saw Orlando Pirates bounce back from two goals down to win 3-2 against SuperSport United on Wednesday.",
+            "keywords": "",
+            "snippet": "Tshepo Ntsoelengoe\n\nA late goal by Goodman Mosele saw Orlando Pirates bounce back from two goals down to emerge 3-2 winners against SuperSport United in a drama...",
+            "url": "https://www.citizen.co.za/sport/soccer/local-soccer/3051383/pirates-edge-supersport-in-five-goal-thriller/",
+            "image_url": "https://media.citizen.co.za/wp-content/uploads/2022/03/Mosele-Pirates-scaled.jpg",
+            "language": "en",
+            "published_at": "2022-03-16T20:12:25.000000Z",
+            "source": "citizen.co.za",
+            "categories": [
+                "general"
+            ],
+            "relevance_score": 18.259298,
+            "locale": "za"
+        }
+    ]
+}

@@ -8,21 +8,24 @@ abstract class ConfigReader {
 
   /// Load config
   static Future<void> initialize(String env) async {
-    String configString;
+    String _configString;
 
     switch (env) {
       case Environment.prod:
-        configString = await rootBundle.loadString('config/prod.json');
+        _configString = await rootBundle.loadString('config/prod.json');
         break;
       case Environment.dev:
       default:
-        configString = await rootBundle.loadString('config/dev.json');
+        _configString = await rootBundle.loadString('config/dev.json');
         break;
     }
 
-    _config = json.decode(configString) as Map<String, dynamic>;
+    _config = json.decode(_configString) as Map<String, dynamic>;
   }
 
   /// Retain API URL from a config file
   static String getApiURL() => _config['apiURL'] as String;
+
+  /// Retain API token from a config file
+  static String getApiToken() => _config['apiToken'] as String;
 }
