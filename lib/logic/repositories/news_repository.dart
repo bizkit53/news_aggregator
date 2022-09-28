@@ -38,14 +38,13 @@ class NewsRepository {
   Future<List<News>> searchNews({
     required String searchPattern,
   }) async {
-    final int searchPage = _getNextPageNumber(targetList: _searchedNews);
-
     // Clear search results when search pattern has changed
     if (searchPattern != _previousSearchPattern) {
       _searchedNews.clear();
       _previousSearchPattern = searchPattern;
     }
 
+    final int searchPage = _getNextPageNumber(targetList: _searchedNews);
     final Response<dynamic> response = await newsNetworkService.searchNews(
       page: searchPage,
       searchPattern: searchPattern,
