@@ -16,9 +16,11 @@ import 'news_repository_test.mocks.dart';
 void main() {
   TestWidgetsFlutterBinding.ensureInitialized();
 
-  late MockNewsNetworkService newsNetworkService;
-  late NewsRepository newsRepository;
-  late List<News> resultList;
+  late MockNewsNetworkService service;
+  late NewsRepository repository;
+  late List<News> result;
+  late String catSearch;
+  late String goalSearch;
   late String firstJsonResponse;
   late String secondJsonResponse;
   late Response<dynamic> firstResponse;
@@ -32,13 +34,17 @@ void main() {
   }
 
   setUpAll(() async {
+    catSearch = 'cat';
+    goalSearch = 'goal';
+    requestOptions = RequestOptions(path: 'examplePath');
+
     firstJsonResponse = await rootBundle.loadString(
       'test/logic/repositories/news_repository/response_first.json',
     );
     secondJsonResponse = await rootBundle.loadString(
       'test/logic/repositories/news_repository/response_second.json',
     );
-    requestOptions = RequestOptions(path: 'examplePath');
+
     firstResponse = Response(
       requestOptions: requestOptions,
       data: jsonDecode(firstJsonResponse),
@@ -50,47 +56,110 @@ void main() {
   });
 
   setUp(() async {
-    resultList = [];
-    newsNetworkService = MockNewsNetworkService();
-    newsRepository = NewsRepository(
-      newsNetworkService: newsNetworkService,
+    result = [];
+    service = MockNewsNetworkService();
+    repository = NewsRepository(
+      newsNetworkService: service,
     );
   });
 
   group('NewsRepository - get news:', () {
     test('single call', () async {
-      when(newsNetworkService.getTopNews(page: 1))
+      when(service.getTopNews(page: 1))
           .thenAnswer((_) => _getFutureResponse(firstResponse));
 
-      expect(resultList.length, 0);
-      resultList = await newsRepository.getNews();
-      expect(resultList.length, 5);
+      expect(result.length, 0);
+      result = await repository.getNews();
+      expect(result.length, 5);
 
-      for (int i = 0; i < resultList.length; i++) {
+      for (int i = 0; i < result.length; i++) {
         // ignore: avoid_dynamic_calls
         singleNewsJson = firstResponse.data['data'][i] as Map<String, dynamic>;
-        expect(resultList[i], News.fromJson(singleNewsJson));
+        expect(result[i], News.fromJson(singleNewsJson));
       }
 
-      verify(newsNetworkService.getTopNews(page: 1)).called(1);
-      verifyNoMoreInteractions(newsNetworkService);
+      verify(service.getTopNews(page: 1)).called(1);
+      verifyNoMoreInteractions(service);
     });
 
     test('double call', () async {
-      when(newsNetworkService.getTopNews(page: 1))
+      when(service.getTopNews(page: 1))
           .thenAnswer((_) => _getFutureResponse(firstResponse));
-      when(newsNetworkService.getTopNews(page: 2))
+      when(service.getTopNews(page: 2))
           .thenAnswer((_) => _getFutureResponse(secondResponse));
 
-      expect(resultList.length, 0);
-      resultList = await newsRepository.getNews();
-      expect(resultList.length, 5);
-      resultList = await newsRepository.getNews();
-      expect(resultList.length, 10);
+      expect(result.length, 0);
+      result = await repository.getNews();
+      expect(result.length, 5);
 
-      verify(newsNetworkService.getTopNews(page: 1)).called(1);
-      verify(newsNetworkService.getTopNews(page: 2)).called(1);
-      verifyNoMoreInteractions(newsNetworkService);
+      result = await repository.getNews();
+      expect(result.length, 10);
+
+      verify(service.getTopNews(page: 1)).called(1);
+      verify(service.getTopNews(page: 2)).called(1);
+      verifyNoMoreInteractions(service);
+    });
+  });
+
+  group('NewsRepository - search news:', () {
+    test('single call', () async {
+      when(service.searchNews(page: 1, searchPattern: goalSearch))
+          .thenAnswer((_) => _getFutureResponse(firstResponse));
+
+      expect(result.length, 0);
+      result = await repository.searchNews(searchPattern: goalSearch);
+      expect(result.length, 5);
+
+      for (int i = 0; i < result.length; i++) {
+        // ignore: avoid_dynamic_calls
+        singleNewsJson = firstResponse.data['data'][i] as Map<String, dynamic>;
+        expect(result[i], News.fromJson(singleNewsJson));
+      }
+
+      verify(service.searchNews(page: 1, searchPattern: goalSearch)).called(1);
+      verifyNoMoreInteractions(service);
+    });
+
+    test('double call', () async {
+      when(service.searchNews(page: 1, searchPattern: goalSearch))
+          .thenAnswer((_) => _getFutureResponse(firstResponse));
+      when(service.searchNews(page: 2, searchPattern: goalSearch))
+          .thenAnswer((_) => _getFutureResponse(secondResponse));
+
+      expect(result.length, 0);
+      result = await repository.searchNews(searchPattern: goalSearch);
+      expect(result.length, 5);
+
+      result = await repository.searchNews(searchPattern: goalSearch);
+      expect(result.length, 10);
+
+      verify(service.searchNews(page: 1, searchPattern: goalSearch)).called(1);
+      verify(service.searchNews(page: 2, searchPattern: goalSearch)).called(1);
+      verifyNoMoreInteractions(service);
+    });
+
+    test('search pattern changed', () async {
+      when(service.searchNews(page: 1, searchPattern: goalSearch))
+          .thenAnswer((_) => _getFutureResponse(firstResponse));
+      when(service.searchNews(page: 2, searchPattern: goalSearch))
+          .thenAnswer((_) => _getFutureResponse(secondResponse));
+      when(service.searchNews(page: 1, searchPattern: catSearch))
+          .thenAnswer((_) => _getFutureResponse(firstResponse));
+
+      expect(result.length, 0);
+      result = await repository.searchNews(searchPattern: goalSearch);
+      expect(result.length, 5);
+
+      result = await repository.searchNews(searchPattern: goalSearch);
+      expect(result.length, 10);
+
+      result = await repository.searchNews(searchPattern: catSearch);
+      expect(result.length, 5);
+
+      verify(service.searchNews(page: 1, searchPattern: goalSearch)).called(1);
+      verify(service.searchNews(page: 2, searchPattern: goalSearch)).called(1);
+      verify(service.searchNews(page: 1, searchPattern: catSearch)).called(1);
+      verifyNoMoreInteractions(service);
     });
   });
 }
