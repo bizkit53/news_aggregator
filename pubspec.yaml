@@ -18,12 +18,14 @@ dependencies:
   flutter:
     sdk: flutter
   flutter_bloc: ^8.0.1
+  flutter_launcher_icons: ^0.10.0
   flutter_localizations:
     sdk: flutter
   freezed: ^2.1.0+1
   get_it: ^7.2.0
   json_serializable: ^6.4.0
   logger: ^1.1.0
+  rename: ^2.0.1
   responsive_framework: ^0.2.0
   validators: ^3.0.0
   very_good_analysis: ^3.0.2
@@ -47,4 +49,10 @@ flutter:
   assets:
     - config/
     - test/logic/repositories/news_repository/
+    - assets/
 
+flutter_icons:
+  android: false
+  ios: true
+  remove_alpha_ios: true
+  image_path: "assets/logo_centered.png"
