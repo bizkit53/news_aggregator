@@ -23,7 +23,7 @@ void main() async {
   late NewsNetworkService newsNetworkService;
   late Response<dynamic> exampleSuccessfulResponse;
 
-  Future<Response<dynamic>> _getFutureResponse() {
+  Future<Response<dynamic>> getFutureResponse() {
     final completer = Completer<Response<dynamic>>()
       ..complete(exampleSuccessfulResponse);
 
@@ -96,7 +96,7 @@ void main() async {
   group('NewsNetworkService - get top news:', () {
     test('successful', () async {
       when(mockDio.get<dynamic>(examplePath)).thenAnswer(
-        (_) => _getFutureResponse(),
+        (_) => getFutureResponse(),
       );
       expect(
         newsNetworkService.getTopNews(page: 1),
@@ -104,7 +104,7 @@ void main() async {
       );
       expect(
         await newsNetworkService.getTopNews(page: 1),
-        await _getFutureResponse(),
+        await getFutureResponse(),
       );
 
       verify(mockDio.options).called(4);
@@ -277,7 +277,7 @@ void main() async {
   group('NewsNetworkService - search news:', () {
     test('successful', () async {
       when(mockDio.get<dynamic>(examplePath)).thenAnswer(
-        (_) => _getFutureResponse(),
+        (_) => getFutureResponse(),
       );
       expect(
         newsNetworkService.searchNews(
@@ -291,7 +291,7 @@ void main() async {
           page: 1,
           searchPattern: exampleSearchPattern,
         ),
-        await _getFutureResponse(),
+        await getFutureResponse(),
       );
 
       verify(mockDio.options).called(4);

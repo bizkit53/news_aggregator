@@ -1,5 +1,5 @@
-import 'package:bloc/bloc.dart';
 import 'package:equatable/equatable.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:logger/logger.dart';
 import 'package:news_aggregator/logic/repositories/auth_repository.dart';
 import 'package:news_aggregator/logic/utils/logger.dart';
