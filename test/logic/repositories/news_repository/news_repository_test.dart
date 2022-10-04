@@ -28,7 +28,7 @@ void main() {
   late RequestOptions requestOptions;
   late Map<String, dynamic> singleNewsJson;
 
-  Future<Response<dynamic>> _getFutureResponse(Response<dynamic> response) {
+  Future<Response<dynamic>> getFutureResponse(Response<dynamic> response) {
     final completer = Completer<Response<dynamic>>()..complete(response);
     return completer.future;
   }
@@ -66,7 +66,7 @@ void main() {
   group('NewsRepository - get news:', () {
     test('single call', () async {
       when(service.getTopNews(page: 1))
-          .thenAnswer((_) => _getFutureResponse(firstResponse));
+          .thenAnswer((_) => getFutureResponse(firstResponse));
 
       expect(result.length, 0);
       result = await repository.getNews();
@@ -84,9 +84,9 @@ void main() {
 
     test('double call', () async {
       when(service.getTopNews(page: 1))
-          .thenAnswer((_) => _getFutureResponse(firstResponse));
+          .thenAnswer((_) => getFutureResponse(firstResponse));
       when(service.getTopNews(page: 2))
-          .thenAnswer((_) => _getFutureResponse(secondResponse));
+          .thenAnswer((_) => getFutureResponse(secondResponse));
 
       expect(result.length, 0);
       result = await repository.getNews();
@@ -104,7 +104,7 @@ void main() {
   group('NewsRepository - search news:', () {
     test('single call', () async {
       when(service.searchNews(page: 1, searchPattern: goalSearch))
-          .thenAnswer((_) => _getFutureResponse(firstResponse));
+          .thenAnswer((_) => getFutureResponse(firstResponse));
 
       expect(result.length, 0);
       result = await repository.searchNews(searchPattern: goalSearch);
@@ -122,9 +122,9 @@ void main() {
 
     test('double call', () async {
       when(service.searchNews(page: 1, searchPattern: goalSearch))
-          .thenAnswer((_) => _getFutureResponse(firstResponse));
+          .thenAnswer((_) => getFutureResponse(firstResponse));
       when(service.searchNews(page: 2, searchPattern: goalSearch))
-          .thenAnswer((_) => _getFutureResponse(secondResponse));
+          .thenAnswer((_) => getFutureResponse(secondResponse));
 
       expect(result.length, 0);
       result = await repository.searchNews(searchPattern: goalSearch);
@@ -140,11 +140,11 @@ void main() {
 
     test('search pattern changed', () async {
       when(service.searchNews(page: 1, searchPattern: goalSearch))
-          .thenAnswer((_) => _getFutureResponse(firstResponse));
+          .thenAnswer((_) => getFutureResponse(firstResponse));
       when(service.searchNews(page: 2, searchPattern: goalSearch))
-          .thenAnswer((_) => _getFutureResponse(secondResponse));
+          .thenAnswer((_) => getFutureResponse(secondResponse));
       when(service.searchNews(page: 1, searchPattern: catSearch))
-          .thenAnswer((_) => _getFutureResponse(firstResponse));
+          .thenAnswer((_) => getFutureResponse(firstResponse));
 
       expect(result.length, 0);
       result = await repository.searchNews(searchPattern: goalSearch);
