@@ -30,7 +30,7 @@ Future<void> mainCommon(String env) async {
 /// Root of the app
 class MyApp extends StatelessWidget {
   /// Constructor
-  const MyApp({Key? key}) : super(key: key);
+  const MyApp({super.key});
 
   @override
   Widget build(BuildContext context) {
