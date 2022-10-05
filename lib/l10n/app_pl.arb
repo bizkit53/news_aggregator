@@ -1,3 +1,5 @@
 {
-    "helloWorld": "helloWorld"
+    "continueAsGuest": "Kontynuuj jako gość",
+    "login": "Logowanie",
+    "register": "Rejestracja"
 }
