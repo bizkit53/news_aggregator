@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:news_aggregator/constans/routes.dart';
 import 'package:news_aggregator/logic/utils/bloc_injector.dart';
 import 'package:news_aggregator/logic/utils/logger.dart';
+import 'package:news_aggregator/presentation/pages/login_page.dart';
 import 'package:news_aggregator/presentation/pages/welcome_page.dart';
 
 /// In-app navigation handler
@@ -17,6 +18,12 @@ class RouteGenerator {
         return MaterialPageRoute(
           builder: (context) => BlocInjector(
             child: const WelcomePage(),
+          ),
+        );
+      case loginRoute:
+        return MaterialPageRoute(
+          builder: (context) => BlocInjector(
+            child: const LoginPage(),
           ),
         );
 

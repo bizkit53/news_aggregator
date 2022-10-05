@@ -1,5 +1,15 @@
 {
     "continueAsGuest": "Continue as a guest",
     "login": "Login",
-    "register": "Register"
+    "register": "Register",
+    "registerNow": "Register now",
+    "orLoginWith": "Or login with",
+    "noAccountYet": "Don't have an account?",
+    "welcome": "Welcome! \nNice to see you!",
+    "email": "Email",
+    "password": "Password",
+    "forgotPassword": "Forgot password?",
+    "emailCannotBeEmpty": "Email field cannot be empty",
+    "emailInvalid": "Email is invalid",
+    "passwordCannotBeEmpty": "Password field cannot be empty"
 }
