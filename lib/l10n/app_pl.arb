@@ -1,3 +1,18 @@
 {
-    "helloWorld": "helloWorld"
+    "continueAsGuest": "Kontynuuj jako gość",
+    "login": "Zaloguj się",
+    "register": "Zarejestruj się",
+    "registerNow": "Dołącz teraz",
+    "orLoginWith": "Lub zaloguj się z",
+    "noAccountYet": "Nie masz jeszcze konta?",
+    "welcome": "Witaj! \nMiło Cię widzieć!",
+    "email": "Email",
+    "password": "Hasło",
+    "forgotPassword": "Zapomniałeś hasła?",
+    "emailCannotBeEmpty": "Pole email nie może być puste",
+    "emailInvalid": "Email niepoprawny",
+    "passwordCannotBeEmpty": "Pole hasło nie może być puste",
+    "username": "Użytkownik",
+    "usernameCannotBeEmpty": "Pole użytkownik nie może być puste",
+    "confirmPassword": "Potwierdź hasło"
 }

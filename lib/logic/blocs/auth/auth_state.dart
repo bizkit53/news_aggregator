@@ -17,7 +17,7 @@ class AuthInitialState extends AuthState {
 }
 
 class AuthenticatedState extends AuthState {
-  const AuthenticatedState({User? user}) : super(user: user);
+  const AuthenticatedState({super.user});
 }
 
 class UnauthenticatedState extends AuthState {

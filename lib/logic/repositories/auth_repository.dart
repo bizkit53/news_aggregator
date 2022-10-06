@@ -46,6 +46,7 @@ class AuthRepository {
           email: email,
           password: password,
         );
+        _log.d('User created with id: ${userCredential.user!.uid}');
 
         final singedInUser = userCredential.user!;
 
@@ -53,6 +54,7 @@ class AuthRepository {
           'name': name,
           'email': email,
         });
+        _log.d('User data saved in firestore');
       },
     );
   }
@@ -78,6 +80,7 @@ class AuthRepository {
   Future<void> singOut() async {
     _log.d('signOut called');
     await firebaseAuth.signOut();
+    _log.d('User signed out');
   }
 
   /// Helper method to avoid duplicating exception catching

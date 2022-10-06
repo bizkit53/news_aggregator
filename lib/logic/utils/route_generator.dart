@@ -2,7 +2,9 @@ import 'package:flutter/material.dart';
 import 'package:news_aggregator/constans/routes.dart';
 import 'package:news_aggregator/logic/utils/bloc_injector.dart';
 import 'package:news_aggregator/logic/utils/logger.dart';
-import 'package:news_aggregator/presentation/pages/splash_page.dart';
+import 'package:news_aggregator/presentation/pages/login_page.dart';
+import 'package:news_aggregator/presentation/pages/register_page.dart';
+import 'package:news_aggregator/presentation/pages/welcome_page.dart';
 
 /// In-app navigation handler
 class RouteGenerator {
@@ -13,16 +15,24 @@ class RouteGenerator {
     );
 
     switch (settings.name) {
-      case splashRoute:
-        return MaterialPageRoute(
-          builder: (context) => BlocInjector(
-            child: const SplashPage(),
-          ),
-        );
+      case welcomeRoute:
+        return _pageWithBloc(child: const WelcomePage());
+      case registerRoute:
+        return _pageWithBloc(child: const RegisterPage());
+      case loginRoute:
+        return _pageWithBloc(child: const LoginPage());
 
       default:
         return _errorRoute();
     }
+  }
+
+  static MaterialPageRoute<dynamic> _pageWithBloc({required Widget child}) {
+    return MaterialPageRoute(
+      builder: (context) => BlocInjector(
+        child: child,
+      ),
+    );
   }
 
   static Route<dynamic> _errorRoute() {

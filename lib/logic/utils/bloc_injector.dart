@@ -12,9 +12,9 @@ import 'package:news_aggregator/logic/utils/injector.dart';
 class BlocInjector extends StatelessWidget {
   /// Constructor
   BlocInjector({
-    Key? key,
+    super.key,
     required this.child,
-  }) : super(key: key);
+  });
 
   /// A page for which blocs are passed
   final Widget child;
