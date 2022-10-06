@@ -1,11 +1,15 @@
 // ignore_for_file: public_member_api_docs, sort_constructors_first
+import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:logger/logger.dart';
 import 'package:news_aggregator/constans/paths.dart';
 import 'package:news_aggregator/constans/sizes.dart';
 import 'package:news_aggregator/constans/spacing.dart';
+import 'package:news_aggregator/logic/repositories/auth_repository.dart';
 import 'package:news_aggregator/logic/utils/app_localizations_context.dart';
+import 'package:news_aggregator/logic/utils/injector.dart';
 import 'package:news_aggregator/logic/utils/logger.dart';
 import 'package:news_aggregator/presentation/widgets/custom_back_button.dart';
 import 'package:news_aggregator/presentation/widgets/custom_scaffold.dart';
@@ -13,19 +17,46 @@ import 'package:news_aggregator/presentation/widgets/custom_wide_button.dart';
 import 'package:validators/validators.dart';
 
 /// Page shown before login or register page
-class LoginPage extends StatefulWidget {
+class RegisterPage extends StatefulWidget {
   /// Constructor
-  const LoginPage({super.key});
+  const RegisterPage({
+    super.key,
+    this.authRepository,
+  });
+
+  final AuthRepository? authRepository;
 
   @override
-  State<LoginPage> createState() => _LoginPageState();
+  State<RegisterPage> createState() => _RegisterPageState();
 }
 
-class _LoginPageState extends State<LoginPage> {
+class _RegisterPageState extends State<RegisterPage> {
   /// Log style customizer
-  final Logger log = logger(LoginPage);
+  final Logger log = logger(RegisterPage);
   final GlobalKey<FormState> formKey = GlobalKey<FormState>();
+  final TextEditingController usernameController = TextEditingController();
+  final TextEditingController emailController = TextEditingController();
+  final TextEditingController passwordController = TextEditingController();
+  late final AuthRepository authRepository;
   bool hidePassword = true;
+
+  @override
+  void initState() {
+    super.initState();
+    authRepository = widget.authRepository ??
+        locator.get<AuthRepository>(
+          param1: locator.get<FirebaseFirestore>(),
+          param2: locator.get<FirebaseAuth>(),
+        );
+  }
+
+  @override
+  void dispose() {
+    usernameController.dispose();
+    emailController.dispose();
+    passwordController.dispose();
+    super.dispose();
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -49,10 +80,31 @@ class _LoginPageState extends State<LoginPage> {
             key: formKey,
             child: Wrap(
               children: [
+                // username field
+                Padding(
+                  padding: paddingBottom15,
+                  child: TextFormField(
+                    controller: usernameController,
+                    decoration: InputDecoration(
+                      prefixIcon: const Icon(Icons.person),
+                      labelText: context.loc.username,
+                      border: OutlineInputBorder(
+                        borderRadius: BorderRadius.circular(borderRadius),
+                      ),
+                    ),
+                    validator: (String? value) {
+                      if (value == null || value.isEmpty) {
+                        return context.loc.usernameCannotBeEmpty;
+                      }
+                      return null;
+                    },
+                  ),
+                ),
                 // email field
                 Padding(
                   padding: paddingBottom15,
                   child: TextFormField(
+                    controller: emailController,
                     decoration: InputDecoration(
                       prefixIcon: const Icon(Icons.email),
                       labelText: context.loc.email,
@@ -72,20 +124,43 @@ class _LoginPageState extends State<LoginPage> {
                   ),
                 ),
                 // password field
+                Padding(
+                  padding: paddingBottom15,
+                  child: TextFormField(
+                    controller: passwordController,
+                    decoration: InputDecoration(
+                      prefixIcon: const Icon(Icons.lock),
+                      suffixIcon: IconButton(
+                        onPressed: () {
+                          setState(() {
+                            hidePassword = !hidePassword;
+                          });
+                        },
+                        icon: Icon(
+                          hidePassword
+                              ? Icons.visibility_off
+                              : Icons.visibility,
+                        ),
+                      ),
+                      labelText: context.loc.password,
+                      border: OutlineInputBorder(
+                        borderRadius: BorderRadius.circular(borderRadius),
+                      ),
+                    ),
+                    obscureText: hidePassword,
+                    validator: (String? value) {
+                      if (value == null || value.isEmpty) {
+                        return context.loc.passwordCannotBeEmpty;
+                      }
+                      return null;
+                    },
+                  ),
+                ),
+                // confirm password field
                 TextFormField(
                   decoration: InputDecoration(
                     prefixIcon: const Icon(Icons.lock),
-                    suffixIcon: IconButton(
-                      onPressed: () {
-                        setState(() {
-                          hidePassword = !hidePassword;
-                        });
-                      },
-                      icon: Icon(
-                        hidePassword ? Icons.visibility_off : Icons.visibility,
-                      ),
-                    ),
-                    labelText: context.loc.password,
+                    labelText: context.loc.confirmPassword,
                     border: OutlineInputBorder(
                       borderRadius: BorderRadius.circular(borderRadius),
                     ),
@@ -98,15 +173,6 @@ class _LoginPageState extends State<LoginPage> {
                     return null;
                   },
                 ),
-                // forgot password button
-                Align(
-                  alignment: Alignment.centerRight,
-                  child: TextButton(
-                    // TODO(bizkit53): implement forgot password button
-                    onPressed: () {},
-                    child: Text(context.loc.forgotPassword),
-                  ),
-                ),
               ],
             ),
           ),
@@ -114,12 +180,17 @@ class _LoginPageState extends State<LoginPage> {
           Wrap(
             children: [
               CustomWideButton(
-                child: Text(context.loc.login),
+                child: Text(context.loc.register),
                 onPressed: () {
-                  log.d('Login button pressed');
+                  log.d('Register button pressed');
                   if (formKey.currentState!.validate()) {
                     log.d('Form is valid');
-                    // TODO(bizkit53): implement login
+                    authRepository.signUp(
+                      name: usernameController.text,
+                      email: emailController.text,
+                      password: passwordController.text,
+                    );
+                    // TODO(bizkit53): implement UI feedback
                   }
                 },
               ),
@@ -140,18 +211,6 @@ class _LoginPageState extends State<LoginPage> {
               ),
             ],
           ),
-          // register button
-          Row(
-            mainAxisAlignment: MainAxisAlignment.center,
-            children: [
-              Text(context.loc.noAccountYet),
-              TextButton(
-                // TODO(bizkit53): implement register button
-                onPressed: () {},
-                child: Text(context.loc.registerNow),
-              ),
-            ],
-          )
         ],
       ),
     );

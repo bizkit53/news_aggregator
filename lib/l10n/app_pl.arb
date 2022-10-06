@@ -11,5 +11,8 @@
     "forgotPassword": "Zapomniałeś hasła?",
     "emailCannotBeEmpty": "Pole email nie może być puste",
     "emailInvalid": "Email niepoprawny",
-    "passwordCannotBeEmpty": "Pole hasło nie może być puste"
+    "passwordCannotBeEmpty": "Pole hasło nie może być puste",
+    "username": "Użytkownik",
+    "usernameCannotBeEmpty": "Pole użytkownik nie może być puste",
+    "confirmPassword": "Potwierdź hasło"
 }

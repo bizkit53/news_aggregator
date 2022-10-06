@@ -11,5 +11,8 @@
     "forgotPassword": "Forgot password?",
     "emailCannotBeEmpty": "Email field cannot be empty",
     "emailInvalid": "Email is invalid",
-    "passwordCannotBeEmpty": "Password field cannot be empty"
+    "passwordCannotBeEmpty": "Password field cannot be empty",
+    "username": "Username",
+    "usernameCannotBeEmpty": "Username field cannot be empty",
+    "confirmPassword": "Confirm password"
 }
