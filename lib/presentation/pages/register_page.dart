@@ -1,19 +1,19 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:logger/logger.dart';
-import 'package:news_aggregator/constans/paths.dart';
 import 'package:news_aggregator/constans/sizes.dart';
 import 'package:news_aggregator/constans/spacing.dart';
 import 'package:news_aggregator/logic/repositories/auth_repository.dart';
 import 'package:news_aggregator/logic/utils/app_localizations_context.dart';
 import 'package:news_aggregator/logic/utils/injector.dart';
 import 'package:news_aggregator/logic/utils/logger.dart';
+import 'package:news_aggregator/presentation/widgets/alternative_login_header.dart';
 import 'package:news_aggregator/presentation/widgets/custom_back_button.dart';
 import 'package:news_aggregator/presentation/widgets/custom_scaffold.dart';
 import 'package:news_aggregator/presentation/widgets/custom_wide_button.dart';
 import 'package:news_aggregator/presentation/widgets/email_field.dart';
+import 'package:news_aggregator/presentation/widgets/google_login_button.dart';
 
 /// Page shown before login or register page
 class RegisterPage extends StatefulWidget {
@@ -23,6 +23,7 @@ class RegisterPage extends StatefulWidget {
     this.authRepository,
   });
 
+  /// Firebase authentification handler
   final AuthRepository? authRepository;
 
   @override
@@ -172,21 +173,8 @@ class _RegisterPageState extends State<RegisterPage> {
                   }
                 },
               ),
-              Padding(
-                padding: paddingBottom15,
-                child: Center(
-                  child: Text(context.loc.orLoginWith),
-                ),
-              ),
-              // TODO(bizkit53): implement google login
-              CustomWideButton(
-                child: Transform.scale(
-                  scale: 0.75.r,
-                  child: Image.asset(
-                    googleLogoTransparentPath,
-                  ),
-                ),
-              ),
+              const AlternativeLoginHeader(),
+              const GoogleLoginButton(),
             ],
           ),
         ],
