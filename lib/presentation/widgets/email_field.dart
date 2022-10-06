@@ -9,12 +9,8 @@ class EmailField extends StatelessWidget {
   /// Constructor
   const EmailField({
     super.key,
-    required this.context,
     required this.controller,
   });
-
-  /// Form page context
-  final BuildContext context;
 
   /// Text controller of email field
   final TextEditingController controller;

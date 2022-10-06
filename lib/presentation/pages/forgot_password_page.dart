@@ -65,8 +65,7 @@ class _ForgotPasswordPageState extends State<ForgotPasswordPage> {
             key: formKey,
             child: Wrap(
               children: [
-                // email field
-                EmailField(context: context, controller: emailController),
+                EmailField(controller: emailController),
                 // send code buttons
                 CustomWideButton(
                   child: Text(context.loc.sendCode),

@@ -30,6 +30,7 @@ dependencies:
   injectable: ^1.5.3
   json_serializable: ^6.4.0
   logger: ^1.1.0
+  provider: ^6.0.3
   rename: ^2.0.1
   validators: ^3.0.0
   very_good_analysis: ^3.0.2
