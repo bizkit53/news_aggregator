@@ -14,5 +14,8 @@
     "passwordCannotBeEmpty": "Password field cannot be empty",
     "username": "Username",
     "usernameCannotBeEmpty": "Username field cannot be empty",
-    "confirmPassword": "Confirm password"
+    "confirmPassword": "Confirm password",
+    "forgotPasswordDescription": "Don't worry, it occurs. Please enter the email address linked with your account.",
+    "sendCode": "Send code",
+    "rememberPassword": "Remember password?"
 }
