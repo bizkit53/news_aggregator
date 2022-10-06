@@ -11,38 +11,40 @@ import 'package:news_aggregator/logic/utils/injector.dart';
 /// Widget which provides all blocs to its child
 class BlocInjector extends StatelessWidget {
   /// Constructor
-  const BlocInjector({
-    Key? key,
+  BlocInjector({
+    super.key,
     required this.child,
-  }) : super(key: key);
+  });
 
   /// A page for which blocs are passed
   final Widget child;
 
+  final AuthRepository _authRepository = locator.get<AuthRepository>(
+    param1: locator.get<FirebaseFirestore>(),
+    param2: locator.get<FirebaseAuth>(),
+  );
+
+  late final AuthBloc _authBloc = AuthBloc(
+    authRepository: _authRepository,
+  );
+
+  late final SigninBloc _signinBloc = SigninBloc(
+    authRepository: _authRepository,
+  );
+
+  late final SignupBloc _signupBloc = SignupBloc(
+    authRepository: _authRepository,
+  );
+
   @override
   Widget build(BuildContext context) {
-    return RepositoryProvider(
-      create: (context) => locator.get<AuthRepository>(
-        param1: locator.get<FirebaseFirestore>(),
-        param2: locator.get<FirebaseAuth>(),
-      ),
+    return RepositoryProvider.value(
+      value: _authRepository,
       child: MultiBlocProvider(
         providers: [
-          BlocProvider(
-            create: (context) => AuthBloc(
-              authRepository: context.read<AuthRepository>(),
-            ),
-          ),
-          BlocProvider(
-            create: (context) => SigninBloc(
-              authRepository: context.read<AuthRepository>(),
-            ),
-          ),
-          BlocProvider(
-            create: (context) => SignupBloc(
-              authRepository: context.read<AuthRepository>(),
-            ),
-          ),
+          BlocProvider.value(value: _authBloc),
+          BlocProvider.value(value: _signinBloc),
+          BlocProvider.value(value: _signupBloc),
         ],
         child: child,
       ),

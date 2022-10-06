@@ -1,5 +1,5 @@
-import 'package:bloc/bloc.dart';
 import 'package:equatable/equatable.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:logger/logger.dart';
 import 'package:news_aggregator/logic/repositories/auth_repository.dart';
 import 'package:news_aggregator/logic/utils/logger.dart';
@@ -14,7 +14,7 @@ class SignupBloc extends Bloc<SignupEvent, SignupState> {
   SignupBloc({required this.authRepository}) : super(const SignupInitial()) {
     on<SubmitSignupEvent>(
       (event, emit) async {
-        log.i('$SubmitSignupEvent called');
+        _log.i('$SubmitSignupEvent called');
         emit(const SignupSubmitted());
 
         try {
@@ -24,10 +24,10 @@ class SignupBloc extends Bloc<SignupEvent, SignupState> {
             password: event.password,
           );
 
-          log.i('$SignupSuccess emitted');
+          _log.i('$SignupSuccess emitted');
           emit(const SignupSuccess());
         } on CustomError catch (e) {
-          log.i('$SignupFailed emitted');
+          _log.i('$SignupFailed emitted');
           emit(SignupFailed(e));
         }
       },
@@ -38,5 +38,5 @@ class SignupBloc extends Bloc<SignupEvent, SignupState> {
   final AuthRepository authRepository;
 
   /// Log style customizer
-  final Logger log = logger(SignupBloc);
+  final Logger _log = logger(SignupBloc);
 }

@@ -26,5 +26,5 @@ class SigninSuccess extends SigninState {
 }
 
 class SigninFailed extends SigninState {
-  const SigninFailed(CustomError error) : super(error);
+  const SigninFailed(super.error);
 }

@@ -16,6 +16,5 @@ abstract class SigninEvent extends Equatable {
 }
 
 class SubmitSigninEvent extends SigninEvent {
-  const SubmitSigninEvent({required String email, required String password})
-      : super(email: email, password: password);
+  const SubmitSigninEvent({required super.email, required super.password});
 }
