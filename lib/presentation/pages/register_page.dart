@@ -10,6 +10,7 @@ import 'package:news_aggregator/logic/utils/injector.dart';
 import 'package:news_aggregator/logic/utils/logger.dart';
 import 'package:news_aggregator/logic/utils/password_field_helper.dart';
 import 'package:news_aggregator/presentation/widgets/alternative_login_header.dart';
+import 'package:news_aggregator/presentation/widgets/confirm_password_field.dart';
 import 'package:news_aggregator/presentation/widgets/custom_back_button.dart';
 import 'package:news_aggregator/presentation/widgets/custom_scaffold.dart';
 import 'package:news_aggregator/presentation/widgets/custom_wide_button.dart';
@@ -40,8 +41,9 @@ class _RegisterPageState extends State<RegisterPage> {
   final TextEditingController usernameController = TextEditingController();
   final TextEditingController emailController = TextEditingController();
   final TextEditingController passwordController = TextEditingController();
+  final TextEditingController confirmPasswordController =
+      TextEditingController();
   late final AuthRepository authRepository;
-  bool hidePassword = true;
 
   @override
   void initState() {
@@ -58,6 +60,7 @@ class _RegisterPageState extends State<RegisterPage> {
     usernameController.dispose();
     emailController.dispose();
     passwordController.dispose();
+    confirmPasswordController.dispose();
     super.dispose();
   }
 
@@ -107,23 +110,7 @@ class _RegisterPageState extends State<RegisterPage> {
                   ),
                   EmailField(controller: emailController),
                   PasswordField(controller: passwordController),
-                  // confirm password field
-                  TextFormField(
-                    decoration: InputDecoration(
-                      prefixIcon: const Icon(Icons.lock),
-                      labelText: context.loc.confirmPassword,
-                      border: OutlineInputBorder(
-                        borderRadius: BorderRadius.circular(borderRadius),
-                      ),
-                    ),
-                    obscureText: hidePassword,
-                    validator: (String? value) {
-                      if (value == null || value.isEmpty) {
-                        return context.loc.passwordCannotBeEmpty;
-                      }
-                      return null;
-                    },
-                  ),
+                  ConfirmPasswordField(controller: confirmPasswordController),
                 ],
               ),
             ),
