@@ -1,4 +1,3 @@
-// ignore_for_file: public_member_api_docs, sort_constructors_first
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:logger/logger.dart';
@@ -10,7 +9,7 @@ import 'package:news_aggregator/logic/utils/logger.dart';
 import 'package:news_aggregator/presentation/widgets/custom_back_button.dart';
 import 'package:news_aggregator/presentation/widgets/custom_scaffold.dart';
 import 'package:news_aggregator/presentation/widgets/custom_wide_button.dart';
-import 'package:validators/validators.dart';
+import 'package:news_aggregator/presentation/widgets/email_field.dart';
 
 /// Page shown before login or register page
 class LoginPage extends StatefulWidget {
@@ -25,7 +24,14 @@ class _LoginPageState extends State<LoginPage> {
   /// Log style customizer
   final Logger log = logger(LoginPage);
   final GlobalKey<FormState> formKey = GlobalKey<FormState>();
+  final TextEditingController emailController = TextEditingController();
   bool hidePassword = true;
+
+  @override
+  void dispose() {
+    emailController.dispose();
+    super.dispose();
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -50,27 +56,7 @@ class _LoginPageState extends State<LoginPage> {
             child: Wrap(
               children: [
                 // email field
-                Padding(
-                  padding: paddingBottom15,
-                  child: TextFormField(
-                    decoration: InputDecoration(
-                      prefixIcon: const Icon(Icons.email),
-                      labelText: context.loc.email,
-                      border: OutlineInputBorder(
-                        borderRadius: BorderRadius.circular(borderRadius),
-                      ),
-                    ),
-                    validator: (String? value) {
-                      if (value == null || value.isEmpty) {
-                        return context.loc.emailCannotBeEmpty;
-                      }
-                      if (!isEmail(value)) {
-                        return context.loc.emailInvalid;
-                      }
-                      return null;
-                    },
-                  ),
-                ),
+                EmailField(context: context, controller: emailController),
                 // password field
                 TextFormField(
                   decoration: InputDecoration(

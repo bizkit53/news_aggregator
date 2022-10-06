@@ -1,4 +1,3 @@
-// ignore_for_file: public_member_api_docs, sort_constructors_first
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
@@ -14,7 +13,7 @@ import 'package:news_aggregator/logic/utils/logger.dart';
 import 'package:news_aggregator/presentation/widgets/custom_back_button.dart';
 import 'package:news_aggregator/presentation/widgets/custom_scaffold.dart';
 import 'package:news_aggregator/presentation/widgets/custom_wide_button.dart';
-import 'package:validators/validators.dart';
+import 'package:news_aggregator/presentation/widgets/email_field.dart';
 
 /// Page shown before login or register page
 class RegisterPage extends StatefulWidget {
@@ -101,28 +100,7 @@ class _RegisterPageState extends State<RegisterPage> {
                   ),
                 ),
                 // email field
-                Padding(
-                  padding: paddingBottom15,
-                  child: TextFormField(
-                    controller: emailController,
-                    decoration: InputDecoration(
-                      prefixIcon: const Icon(Icons.email),
-                      labelText: context.loc.email,
-                      border: OutlineInputBorder(
-                        borderRadius: BorderRadius.circular(borderRadius),
-                      ),
-                    ),
-                    validator: (String? value) {
-                      if (value == null || value.isEmpty) {
-                        return context.loc.emailCannotBeEmpty;
-                      }
-                      if (!isEmail(value)) {
-                        return context.loc.emailInvalid;
-                      }
-                      return null;
-                    },
-                  ),
-                ),
+                EmailField(context: context, controller: emailController),
                 // password field
                 Padding(
                   padding: paddingBottom15,
