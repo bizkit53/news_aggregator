@@ -1,7 +1,7 @@
 // ignore_for_file: public_member_api_docs
 
 const String welcomeRoute = '/';
-const String signUpRoute = '/singUp';
+const String registerRoute = '/register';
 const String loginRoute = '/login';
 const String forgotPasswordRoute = '/forgotPassword';
 const String setNewPasswordRoute = '/setNewPassword';
