@@ -1,13 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:logger/logger.dart';
-import 'package:news_aggregator/constans/routes.dart';
-import 'package:news_aggregator/constans/spacing.dart';
-import 'package:news_aggregator/logic/utils/app_localizations_context.dart';
-import 'package:news_aggregator/logic/utils/logger.dart';
-import 'package:news_aggregator/presentation/widgets/custom_back_button.dart';
-import 'package:news_aggregator/presentation/widgets/custom_scaffold.dart';
-import 'package:news_aggregator/presentation/widgets/custom_wide_button.dart';
-import 'package:news_aggregator/presentation/widgets/email_field.dart';
+import 'package:news_aggregator/constans/import_constants.dart';
+import 'package:news_aggregator/logic/utils/import_utils.dart';
+import 'package:news_aggregator/presentation/widgets/import_widgets.dart';
 
 /// Page shown before login or register page
 class ForgotPasswordPage extends StatefulWidget {
@@ -60,7 +55,6 @@ class _ForgotPasswordPageState extends State<ForgotPasswordPage> {
               ),
             ],
           ),
-          // login form
           Form(
             key: formKey,
             child: Wrap(
@@ -81,20 +75,20 @@ class _ForgotPasswordPageState extends State<ForgotPasswordPage> {
             ),
           ),
           const SizedBox(),
-          // switch to login
+          // switch to login page
           Row(
             mainAxisAlignment: MainAxisAlignment.center,
             children: [
               Text(context.loc.rememberPassword),
               TextButton(
                 onPressed: () {
-                  log.d('Switch to login button pressed');
+                  log.d('Switch to login page button pressed');
                   Navigator.pushNamed(context, loginRoute);
                 },
                 child: Text(context.loc.login),
               ),
             ],
-          )
+          ),
         ],
       ),
     );

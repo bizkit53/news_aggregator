@@ -1,15 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:logger/logger.dart';
-import 'package:news_aggregator/logic/utils/app_localizations_context.dart';
-import 'package:news_aggregator/logic/utils/logger.dart';
-import 'package:news_aggregator/logic/utils/password_field_helper.dart';
-import 'package:news_aggregator/presentation/widgets/alternative_login_header.dart';
-import 'package:news_aggregator/presentation/widgets/custom_back_button.dart';
-import 'package:news_aggregator/presentation/widgets/custom_scaffold.dart';
-import 'package:news_aggregator/presentation/widgets/custom_wide_button.dart';
-import 'package:news_aggregator/presentation/widgets/email_field.dart';
-import 'package:news_aggregator/presentation/widgets/google_login_button.dart';
-import 'package:news_aggregator/presentation/widgets/password_field.dart';
+import 'package:news_aggregator/logic/utils/import_utils.dart';
+import 'package:news_aggregator/presentation/widgets/import_widgets.dart';
 import 'package:provider/provider.dart';
 
 /// Page shown before login or register page

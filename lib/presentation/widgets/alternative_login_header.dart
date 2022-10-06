@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
-import 'package:news_aggregator/constans/spacing.dart';
-import 'package:news_aggregator/logic/utils/app_localizations_context.dart';
+import 'package:news_aggregator/constans/import_constants.dart';
+import 'package:news_aggregator/logic/utils/import_utils.dart';
 
 /// Header for alternative login options
 class AlternativeLoginHeader extends StatelessWidget {

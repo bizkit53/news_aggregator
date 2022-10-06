@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
-import 'package:news_aggregator/constans/paths.dart';
-import 'package:news_aggregator/presentation/widgets/custom_wide_button.dart';
+import 'package:news_aggregator/constans/import_constants.dart';
+import 'package:news_aggregator/presentation/widgets/import_widgets.dart';
 
 /// Button for login with google
 class GoogleLoginButton extends StatelessWidget {

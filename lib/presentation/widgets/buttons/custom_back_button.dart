@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:logger/logger.dart';
-import 'package:news_aggregator/logic/utils/logger.dart';
+import 'package:news_aggregator/logic/utils/import_utils.dart';
 
 /// Button popping current navigator page
 class CustomBackButton extends StatelessWidget {
