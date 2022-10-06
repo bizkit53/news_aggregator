@@ -4,6 +4,7 @@ const String welcomeRoute = '/';
 const String registerRoute = '/register';
 const String loginRoute = '/login';
 const String forgotPasswordRoute = '/forgotPassword';
+const String verificationRoute = '/verification';
 const String setNewPasswordRoute = '/setNewPassword';
 const String passwordChangedRoute = '/passwordChanged';
 const String feedRoute = '/feed';

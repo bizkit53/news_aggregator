@@ -15,7 +15,12 @@
     "username": "Username",
     "usernameCannotBeEmpty": "Username field cannot be empty",
     "confirmPassword": "Confirm password",
-    "forgotPasswordDescription": "Don't worry, it occurs. Please enter the email address linked with your account.",
+    "forgotPasswordDescription": "Don't worry, it happens. Please enter the email address linked with your account.",
     "sendCode": "Send code",
-    "rememberPassword": "Remember password?"
+    "rememberPassword": "Remember password?",
+    "verification": "OTP verification",
+    "verificationDescription": "Enter the verification code we just sent to your email address.",
+    "verify": "Verify",
+    "noCode": "Didn't receive code?",
+    "resend": "Resend"
 }

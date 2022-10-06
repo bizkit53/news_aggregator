@@ -15,7 +15,12 @@
     "username": "Użytkownik",
     "usernameCannotBeEmpty": "Pole użytkownik nie może być puste",
     "confirmPassword": "Potwierdź hasło",
-    "forgotPasswordDescription": "Nie martw się, zdarza się. Wprowadź adres email połączony z Twoim kontem.",
+    "forgotPasswordDescription": "Nie martw się, to się zdarza. Wprowadź adres email połączony z Twoim kontem.",
     "sendCode": "Wyślij kod",
-    "rememberPassword": "Pamiętasz hasło?"
+    "rememberPassword": "Pamiętasz hasło?",
+    "verification": "Weryfikacja OTP",
+    "verificationDescription": "Wprowadź kod weryfikacyjny, który właśnie wysłaliśmy na Twój adres e-mail.",
+    "verify": "Zweryfikuj",
+    "noCode": "Nie otrzymałeś kodu?",
+    "resend": "Wyślij ponownie"
 }
