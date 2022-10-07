@@ -22,5 +22,12 @@
     "verificationDescription": "Enter the verification code we just sent to your email address.",
     "verify": "Verify",
     "noCode": "Didn't receive code?",
-    "resend": "Resend"
+    "resend": "Resend",
+    "createNewPassword": "Create new password",
+    "createNewPasswordDescription": "Keep it strong! Your new password should have at least 8 characters, big letter, small letter and digit.",
+    "newPassword": "New password",
+    "resetPassword": "Reset password",
+    "passwordChanged": "Password changed!",
+    "passwordChangedDescription": "Your password has been changed successfully",
+    "backToLogin": "Back to login"
 }

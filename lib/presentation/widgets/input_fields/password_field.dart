@@ -9,10 +9,14 @@ class PasswordField extends StatelessWidget {
   const PasswordField({
     super.key,
     required this.controller,
+    this.settingNewPassword = false,
   });
 
   /// Text controller of password field
   final TextEditingController controller;
+
+  /// Whether the password field is used to set a new password
+  final bool settingNewPassword;
 
   @override
   Widget build(BuildContext context) {
@@ -32,7 +36,9 @@ class PasswordField extends StatelessWidget {
                   : Icons.visibility,
             ),
           ),
-          labelText: context.loc.password,
+          labelText: settingNewPassword
+              ? context.loc.newPassword
+              : context.loc.password,
           border: OutlineInputBorder(
             borderRadius: BorderRadius.circular(borderRadius),
           ),

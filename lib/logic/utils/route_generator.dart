@@ -4,6 +4,7 @@ import 'package:news_aggregator/logic/utils/bloc_injector.dart';
 import 'package:news_aggregator/logic/utils/logger.dart';
 import 'package:news_aggregator/presentation/pages/forgot_password_page.dart';
 import 'package:news_aggregator/presentation/pages/login_page.dart';
+import 'package:news_aggregator/presentation/pages/new_password_page.dart';
 import 'package:news_aggregator/presentation/pages/register_page.dart';
 import 'package:news_aggregator/presentation/pages/verification_page.dart';
 import 'package:news_aggregator/presentation/pages/welcome_page.dart';
@@ -27,6 +28,8 @@ class RouteGenerator {
         return _pageWithBloc(child: const ForgotPasswordPage());
       case verificationRoute:
         return _pageWithBloc(child: const VerificationPage());
+      case setNewPasswordRoute:
+        return _pageWithBloc(child: const NewPasswordPage());
 
       default:
         return _errorRoute();
