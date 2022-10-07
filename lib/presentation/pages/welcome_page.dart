@@ -1,8 +1,7 @@
 import 'package:flutter/material.dart';
-import 'package:news_aggregator/constans/paths.dart';
-import 'package:news_aggregator/logic/utils/app_localizations_context.dart';
-import 'package:news_aggregator/presentation/widgets/custom_scaffold.dart';
-import 'package:news_aggregator/presentation/widgets/custom_wide_button.dart';
+import 'package:news_aggregator/constans/import_constants.dart';
+import 'package:news_aggregator/logic/utils/import_utils.dart';
+import 'package:news_aggregator/presentation/widgets/import_widgets.dart';
 
 /// Page shown before login or register page
 class WelcomePage extends StatelessWidget {

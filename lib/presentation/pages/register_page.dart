@@ -1,20 +1,12 @@
-// ignore_for_file: public_member_api_docs, sort_constructors_first
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:logger/logger.dart';
-import 'package:news_aggregator/constans/paths.dart';
-import 'package:news_aggregator/constans/sizes.dart';
-import 'package:news_aggregator/constans/spacing.dart';
+import 'package:news_aggregator/constans/import_constants.dart';
 import 'package:news_aggregator/logic/repositories/auth_repository.dart';
-import 'package:news_aggregator/logic/utils/app_localizations_context.dart';
-import 'package:news_aggregator/logic/utils/injector.dart';
-import 'package:news_aggregator/logic/utils/logger.dart';
-import 'package:news_aggregator/presentation/widgets/custom_back_button.dart';
-import 'package:news_aggregator/presentation/widgets/custom_scaffold.dart';
-import 'package:news_aggregator/presentation/widgets/custom_wide_button.dart';
-import 'package:validators/validators.dart';
+import 'package:news_aggregator/logic/utils/import_utils.dart';
+import 'package:news_aggregator/presentation/widgets/import_widgets.dart';
+import 'package:provider/provider.dart';
 
 /// Page shown before login or register page
 class RegisterPage extends StatefulWidget {
@@ -24,6 +16,7 @@ class RegisterPage extends StatefulWidget {
     this.authRepository,
   });
 
+  /// Firebase authentification handler
   final AuthRepository? authRepository;
 
   @override
@@ -37,8 +30,9 @@ class _RegisterPageState extends State<RegisterPage> {
   final TextEditingController usernameController = TextEditingController();
   final TextEditingController emailController = TextEditingController();
   final TextEditingController passwordController = TextEditingController();
+  final TextEditingController confirmPasswordController =
+      TextEditingController();
   late final AuthRepository authRepository;
-  bool hidePassword = true;
 
   @override
   void initState() {
@@ -55,163 +49,84 @@ class _RegisterPageState extends State<RegisterPage> {
     usernameController.dispose();
     emailController.dispose();
     passwordController.dispose();
+    confirmPasswordController.dispose();
     super.dispose();
   }
 
   @override
   Widget build(BuildContext context) {
-    return CustomScaffold(
-      child: Column(
-        mainAxisAlignment: MainAxisAlignment.spaceAround,
-        children: [
-          // back button
-          const Align(
-            alignment: Alignment.topLeft,
-            child: CustomBackButton(),
-          ),
-          // welcome text
-          Text(
-            context.loc.welcome,
-            style: Theme.of(context).textTheme.headline4,
-            textAlign: TextAlign.center,
-          ),
-          // login form
-          Form(
-            key: formKey,
-            child: Wrap(
-              children: [
-                // username field
-                Padding(
-                  padding: paddingBottom15,
-                  child: TextFormField(
-                    controller: usernameController,
-                    decoration: InputDecoration(
-                      prefixIcon: const Icon(Icons.person),
-                      labelText: context.loc.username,
-                      border: OutlineInputBorder(
-                        borderRadius: BorderRadius.circular(borderRadius),
-                      ),
-                    ),
-                    validator: (String? value) {
-                      if (value == null || value.isEmpty) {
-                        return context.loc.usernameCannotBeEmpty;
-                      }
-                      return null;
-                    },
-                  ),
-                ),
-                // email field
-                Padding(
-                  padding: paddingBottom15,
-                  child: TextFormField(
-                    controller: emailController,
-                    decoration: InputDecoration(
-                      prefixIcon: const Icon(Icons.email),
-                      labelText: context.loc.email,
-                      border: OutlineInputBorder(
-                        borderRadius: BorderRadius.circular(borderRadius),
-                      ),
-                    ),
-                    validator: (String? value) {
-                      if (value == null || value.isEmpty) {
-                        return context.loc.emailCannotBeEmpty;
-                      }
-                      if (!isEmail(value)) {
-                        return context.loc.emailInvalid;
-                      }
-                      return null;
-                    },
-                  ),
-                ),
-                // password field
-                Padding(
-                  padding: paddingBottom15,
-                  child: TextFormField(
-                    controller: passwordController,
-                    decoration: InputDecoration(
-                      prefixIcon: const Icon(Icons.lock),
-                      suffixIcon: IconButton(
-                        onPressed: () {
-                          setState(() {
-                            hidePassword = !hidePassword;
-                          });
-                        },
-                        icon: Icon(
-                          hidePassword
-                              ? Icons.visibility_off
-                              : Icons.visibility,
+    return ChangeNotifierProvider<PasswordFieldHelper>(
+      create: (_) => PasswordFieldHelper(),
+      child: CustomScaffold(
+        child: Column(
+          mainAxisAlignment: MainAxisAlignment.spaceAround,
+          children: [
+            // back button
+            const Align(
+              alignment: Alignment.topLeft,
+              child: CustomBackButton(),
+            ),
+            // welcome text
+            Text(
+              context.loc.welcome,
+              style: Theme.of(context).textTheme.headline4,
+              textAlign: TextAlign.center,
+            ),
+            // register form
+            Form(
+              key: formKey,
+              child: Wrap(
+                children: [
+                  // username field
+                  Padding(
+                    padding: paddingBottom15,
+                    child: TextFormField(
+                      controller: usernameController,
+                      decoration: InputDecoration(
+                        prefixIcon: const Icon(Icons.person),
+                        labelText: context.loc.username,
+                        border: OutlineInputBorder(
+                          borderRadius: BorderRadius.circular(borderRadius),
                         ),
                       ),
-                      labelText: context.loc.password,
-                      border: OutlineInputBorder(
-                        borderRadius: BorderRadius.circular(borderRadius),
-                      ),
-                    ),
-                    obscureText: hidePassword,
-                    validator: (String? value) {
-                      if (value == null || value.isEmpty) {
-                        return context.loc.passwordCannotBeEmpty;
-                      }
-                      return null;
-                    },
-                  ),
-                ),
-                // confirm password field
-                TextFormField(
-                  decoration: InputDecoration(
-                    prefixIcon: const Icon(Icons.lock),
-                    labelText: context.loc.confirmPassword,
-                    border: OutlineInputBorder(
-                      borderRadius: BorderRadius.circular(borderRadius),
+                      validator: (String? value) {
+                        if (value == null || value.isEmpty) {
+                          return context.loc.usernameCannotBeEmpty;
+                        }
+                        return null;
+                      },
                     ),
                   ),
-                  obscureText: hidePassword,
-                  validator: (String? value) {
-                    if (value == null || value.isEmpty) {
-                      return context.loc.passwordCannotBeEmpty;
+                  EmailField(controller: emailController),
+                  PasswordField(controller: passwordController),
+                  ConfirmPasswordField(controller: confirmPasswordController),
+                ],
+              ),
+            ),
+            // register buttons
+            Wrap(
+              children: [
+                CustomWideButton(
+                  child: Text(context.loc.register),
+                  onPressed: () {
+                    log.d('Register button pressed');
+                    if (formKey.currentState!.validate()) {
+                      log.d('Form is valid');
+                      authRepository.signUp(
+                        name: usernameController.text,
+                        email: emailController.text,
+                        password: passwordController.text,
+                      );
+                      // TODO(bizkit53): implement UI feedback
                     }
-                    return null;
                   },
                 ),
+                const AlternativeLoginHeader(),
+                const GoogleLoginButton(),
               ],
             ),
-          ),
-          // login buttons
-          Wrap(
-            children: [
-              CustomWideButton(
-                child: Text(context.loc.register),
-                onPressed: () {
-                  log.d('Register button pressed');
-                  if (formKey.currentState!.validate()) {
-                    log.d('Form is valid');
-                    authRepository.signUp(
-                      name: usernameController.text,
-                      email: emailController.text,
-                      password: passwordController.text,
-                    );
-                    // TODO(bizkit53): implement UI feedback
-                  }
-                },
-              ),
-              Padding(
-                padding: paddingBottom15,
-                child: Center(
-                  child: Text(context.loc.orLoginWith),
-                ),
-              ),
-              // TODO(bizkit53): implement google login
-              CustomWideButton(
-                child: Transform.scale(
-                  scale: 0.75.r,
-                  child: Image.asset(
-                    googleLogoTransparentPath,
-                  ),
-                ),
-              ),
-            ],
-          ),
-        ],
+          ],
+        ),
       ),
     );
   }

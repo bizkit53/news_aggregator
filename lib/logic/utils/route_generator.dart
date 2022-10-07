@@ -2,8 +2,12 @@ import 'package:flutter/material.dart';
 import 'package:news_aggregator/constans/routes.dart';
 import 'package:news_aggregator/logic/utils/bloc_injector.dart';
 import 'package:news_aggregator/logic/utils/logger.dart';
+import 'package:news_aggregator/presentation/pages/forgot_password_page.dart';
 import 'package:news_aggregator/presentation/pages/login_page.dart';
+import 'package:news_aggregator/presentation/pages/new_password_page.dart';
+import 'package:news_aggregator/presentation/pages/password_changed.dart';
 import 'package:news_aggregator/presentation/pages/register_page.dart';
+import 'package:news_aggregator/presentation/pages/verification_page.dart';
 import 'package:news_aggregator/presentation/pages/welcome_page.dart';
 
 /// In-app navigation handler
@@ -21,6 +25,14 @@ class RouteGenerator {
         return _pageWithBloc(child: const RegisterPage());
       case loginRoute:
         return _pageWithBloc(child: const LoginPage());
+      case forgotPasswordRoute:
+        return _pageWithBloc(child: const ForgotPasswordPage());
+      case verificationRoute:
+        return _pageWithBloc(child: const VerificationPage());
+      case setNewPasswordRoute:
+        return _pageWithBloc(child: const NewPasswordPage());
+      case passwordChangedRoute:
+        return _pageWithBloc(child: const PasswordChangedPage());
 
       default:
         return _errorRoute();
