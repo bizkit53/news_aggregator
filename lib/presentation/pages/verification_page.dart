@@ -26,6 +26,8 @@ class VerificationPage extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final Logger log = logger(VerificationPage);
+    // TODO(bizkit53): use authRepository to verify and resend code
+    // ignore: unused_local_variable
     final AuthRepository authRepository = this.authRepository ??
         locator.get<AuthRepository>(
           param1: locator.get<FirebaseFirestore>(),
