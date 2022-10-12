@@ -21,10 +21,9 @@ class VerificationPage extends StatelessWidget {
   /// Firebase authentification handler
   final AuthRepository? authRepository;
 
-  /// Log style customizer
-
   @override
   Widget build(BuildContext context) {
+    /// Log style customizer
     final Logger log = logger(VerificationPage);
     // TODO(bizkit53): use authRepository to verify and resend code
     // ignore: unused_local_variable

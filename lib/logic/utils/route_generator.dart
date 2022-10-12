@@ -2,12 +2,12 @@ import 'package:flutter/material.dart';
 import 'package:news_aggregator/constans/routes.dart';
 import 'package:news_aggregator/logic/utils/bloc_injector.dart';
 import 'package:news_aggregator/logic/utils/logger.dart';
-import 'package:news_aggregator/presentation/pages/forgot_password_page.dart';
-import 'package:news_aggregator/presentation/pages/login_page.dart';
-import 'package:news_aggregator/presentation/pages/new_password_page.dart';
-import 'package:news_aggregator/presentation/pages/password_changed.dart';
-import 'package:news_aggregator/presentation/pages/register_page.dart';
-import 'package:news_aggregator/presentation/pages/verification_page.dart';
+import 'package:news_aggregator/presentation/pages/forgot_password/forgot_password_page.dart';
+import 'package:news_aggregator/presentation/pages/forgot_password/new_password_page.dart';
+import 'package:news_aggregator/presentation/pages/forgot_password/password_changed.dart';
+import 'package:news_aggregator/presentation/pages/forgot_password/verification_page.dart';
+import 'package:news_aggregator/presentation/pages/login/login_page.dart';
+import 'package:news_aggregator/presentation/pages/registration/register_page.dart';
 import 'package:news_aggregator/presentation/pages/welcome_page.dart';
 
 /// In-app navigation handler
