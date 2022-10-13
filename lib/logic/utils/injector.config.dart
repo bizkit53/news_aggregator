@@ -41,7 +41,7 @@ _i1.GetIt $initGetIt(
     _,
   ) =>
       _i6.NewsNetworkService(apiHandler: apiHandler));
-  gh.factory<_i8.NewsRepository>(() =>
+  gh.singleton<_i8.NewsRepository>(
       _i8.NewsRepository(newsNetworkService: get<_i6.NewsNetworkService>()));
   return get;
 }

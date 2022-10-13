@@ -1,12 +1,14 @@
 // ignore_for_file: avoid_dynamic_calls
 
+import 'dart:developer';
+
 import 'package:dio/dio.dart';
 import 'package:injectable/injectable.dart';
 import 'package:news_aggregator/logic/services/network_services/news_network_service.dart';
 import 'package:news_aggregator/models/news/news.dart';
 
 /// In-app news service response handler
-@injectable
+@singleton
 class NewsRepository {
   /// Constructor
   NewsRepository({
@@ -30,7 +32,7 @@ class NewsRepository {
     );
 
     _decodeNews(response: response, targetList: _topNews);
-
+    log(response.data.toString());
     return _topNews;
   }
 
