@@ -2,6 +2,7 @@ import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
 import 'package:news_aggregator/constans/import_constants.dart';
 import 'package:news_aggregator/models/news/news.dart';
+import 'package:news_aggregator/presentation/widgets/import_widgets.dart';
 import 'package:url_launcher/url_launcher.dart';
 
 /// Single news tile
@@ -19,7 +20,10 @@ class NewsTile extends StatelessWidget {
       child: GestureDetector(
         onTap: () => _launchUrl(webUrl: news.url!),
         child: Container(
-          decoration: _tileDecoration(context),
+          decoration: customBoxDecoration(
+            context: context,
+            borderRadius: borderRadius,
+          ),
           height: tileHeight,
           child: Column(
             children: [
@@ -33,21 +37,6 @@ class NewsTile extends StatelessWidget {
           ),
         ),
       ),
-    );
-  }
-
-  BoxDecoration _tileDecoration(BuildContext context) {
-    return BoxDecoration(
-      color: Theme.of(context).cardColor,
-      borderRadius: BorderRadius.circular(borderRadius),
-      boxShadow: [
-        BoxShadow(
-          color: Theme.of(context).disabledColor,
-          spreadRadius: spreadRadius,
-          blurRadius: blurRadius,
-          offset: shadowOffset,
-        ),
-      ],
     );
   }
 

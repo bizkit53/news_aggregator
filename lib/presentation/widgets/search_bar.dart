@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:news_aggregator/constans/import_constants.dart';
 import 'package:news_aggregator/logic/utils/import_utils.dart';
+import 'package:news_aggregator/presentation/widgets/import_widgets.dart';
 
 /// Widget used for filtering news by title
 class SearchBar extends StatelessWidget {
@@ -10,12 +11,14 @@ class SearchBar extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Padding(
-      padding: paddingBottom15,
-      child: Container(
-        margin: marginHorizontal10,
-        decoration: BoxDecoration(
-          color: Theme.of(context).focusColor,
-          borderRadius: BorderRadius.circular(borderRadius),
+      padding: paddingHor24Ver10,
+      child: DecoratedBox(
+        decoration: customBoxDecoration(
+          context: context,
+          borderRadius: circularBorderRadius,
+          border: Border.all(
+            color: Theme.of(context).disabledColor.withOpacity(borderOpacity),
+          ),
         ),
         child: Row(
           children: [
