@@ -41,10 +41,7 @@ _i1.GetIt $initGetIt(
     _,
   ) =>
       _i6.NewsNetworkService(apiHandler: apiHandler));
-  gh.factoryParam<_i8.NewsRepository, _i6.NewsNetworkService, dynamic>((
-    newsNetworkService,
-    _,
-  ) =>
-      _i8.NewsRepository(newsNetworkService: newsNetworkService));
+  gh.factory<_i8.NewsRepository>(() =>
+      _i8.NewsRepository(newsNetworkService: get<_i6.NewsNetworkService>()));
   return get;
 }

@@ -10,7 +10,7 @@ import 'package:news_aggregator/models/news/news.dart';
 class NewsRepository {
   /// Constructor
   NewsRepository({
-    @factoryParam required this.newsNetworkService,
+    required this.newsNetworkService,
   });
 
   /// API request handler
