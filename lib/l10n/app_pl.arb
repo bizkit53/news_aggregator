@@ -29,5 +29,6 @@
     "resetPassword": "Zresetuj hasło",
     "passwordChanged": "Hasło zmienione!",
     "passwordChangedDescription": "Twoje hasło zostało pomyślnie zmienione",
-    "backToLogin": "Wróć do logowania"
+    "backToLogin": "Wróć do logowania",
+    "search": "Szukaj"
 }

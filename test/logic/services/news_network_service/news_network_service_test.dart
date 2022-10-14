@@ -38,9 +38,9 @@ void main() async {
     );
     baseOptions = BaseOptions(
       baseUrl: ConfigReader.getApiURL(),
-      connectTimeout: 10000,
-      receiveTimeout: 10000,
-      sendTimeout: 10000,
+      connectTimeout: 25000,
+      receiveTimeout: 25000,
+      sendTimeout: 25000,
     );
     exampleSuccessfulResponse = Response<dynamic>(
       requestOptions: requestOptions,

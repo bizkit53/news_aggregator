@@ -4,7 +4,9 @@ import 'package:firebase_auth/firebase_auth.dart';
 import 'package:firebase_auth_mocks/firebase_auth_mocks.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter_test/flutter_test.dart';
+import 'package:news_aggregator/constans/import_constants.dart';
 import 'package:news_aggregator/logic/repositories/auth_repository.dart';
+import 'package:news_aggregator/logic/services/config_reader/config_reader.dart';
 import 'package:news_aggregator/logic/utils/injector.dart';
 import 'package:news_aggregator/models/custom_error.dart';
 
@@ -24,6 +26,8 @@ void main() async {
   );
 
   setUpAll(() async {
+    TestWidgetsFlutterBinding.ensureInitialized();
+    await ConfigReader.initialize(Environment.dev);
     setupFirebaseAuthMocks();
 
     await Firebase.initializeApp();

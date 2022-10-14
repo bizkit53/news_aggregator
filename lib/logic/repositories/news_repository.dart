@@ -6,11 +6,11 @@ import 'package:news_aggregator/logic/services/network_services/news_network_ser
 import 'package:news_aggregator/models/news/news.dart';
 
 /// In-app news service response handler
-@injectable
+@singleton
 class NewsRepository {
   /// Constructor
   NewsRepository({
-    @factoryParam required this.newsNetworkService,
+    required this.newsNetworkService,
   });
 
   /// API request handler

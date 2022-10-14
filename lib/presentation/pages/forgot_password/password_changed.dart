@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:logger/logger.dart';
 import 'package:news_aggregator/constans/import_constants.dart';
 import 'package:news_aggregator/logic/utils/import_utils.dart';
@@ -26,7 +25,7 @@ class PasswordChangedPage extends StatelessWidget {
             child: CustomBackButton(),
           ),
           Transform.scale(
-            scale: 0.75.r,
+            scale: smallImageScale,
             child: Image.asset(successMarkPath),
           ),
           // password changed headline text
