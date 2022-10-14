@@ -4,6 +4,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 
 // Paddings
+EdgeInsets loaderPadding = EdgeInsets.symmetric(vertical: 30.h);
 EdgeInsets paddingBottom15 = EdgeInsets.only(bottom: 15.h);
 EdgeInsets paddingHorizontal24 = EdgeInsets.symmetric(horizontal: 24.w);
 EdgeInsets paddingHor24Ver10 = EdgeInsets.symmetric(

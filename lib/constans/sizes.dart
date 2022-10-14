@@ -18,3 +18,8 @@ Offset shadowOffset = Offset(0.r, 3.r);
 // Divider
 double dividerHeight = 10.h;
 double dividerThickness = 1.h;
+
+// Image
+double smallImageScale = 0.75.r;
+double mediumImageSquareSize = 150.r;
+double mediumImageScale = 1.25.r;
