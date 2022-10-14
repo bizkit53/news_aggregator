@@ -14,3 +14,7 @@ double tileImageHeight = 235.h;
 double blurRadius = 10.r;
 double spreadRadius = 1.r;
 Offset shadowOffset = Offset(0.r, 3.r);
+
+// Divider
+double dividerHeight = 10.h;
+double dividerThickness = 1.h;
