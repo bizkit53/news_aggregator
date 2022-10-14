@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:news_aggregator/constans/import_constants.dart';
-import 'package:news_aggregator/logic/repositories/news_repository.dart';
-import 'package:news_aggregator/logic/utils/import_utils.dart';
+import 'package:news_aggregator/logic/blocs/news/news_bloc.dart';
 import 'package:news_aggregator/models/news/news.dart';
 import 'package:news_aggregator/presentation/widgets/import_widgets.dart';
 
@@ -16,21 +16,20 @@ class FeedPage extends StatefulWidget {
 
 class _FeedPageState extends State<FeedPage> {
   final int _newsLimit = 30;
-  List<News> newsList = [];
-
-  Future<void> _fetchTopNews() async {
-    newsList = await locator.get<NewsRepository>().getNews();
-    setState(() {});
-  }
+  late List<News> newsList;
+  bool canFetchData = false;
 
   @override
   void initState() {
-    _fetchTopNews();
+    context.read<NewsBloc>().add(const ClearResultsEvent());
+    context.read<NewsBloc>().add(const GetTopNewsEvent());
     super.initState();
   }
 
   @override
   Widget build(BuildContext context) {
+    newsList = context.watch<NewsBloc>().state.newsList;
+
     return SafeArea(
       child: CustomScrollView(
         slivers: [
@@ -39,24 +38,34 @@ class _FeedPageState extends State<FeedPage> {
               children: [
                 _logoImage(),
                 const SearchBar(),
-                if (newsList.isEmpty) _loader(),
               ],
             ),
           ),
-          if (newsList.isNotEmpty)
-            SliverList(
-              delegate: SliverChildBuilderDelegate(
-                childCount: newsList.length + 1,
-                (context, index) {
-                  if (index == newsList.length && index < _newsLimit) {
-                    _fetchTopNews();
-                    return _loader();
-                  }
-                  return _singleNewsTile(index);
-                },
-              ),
-            ),
+          _newsList(),
         ],
+      ),
+    );
+  }
+
+  SliverList _newsList() {
+    return SliverList(
+      delegate: SliverChildBuilderDelegate(
+        childCount: newsList.length + 1,
+        (context, index) {
+          if (index == newsList.length && index < _newsLimit) {
+            if (canFetchData) {
+              canFetchData = false;
+              context.read<NewsBloc>().add(const GetTopNewsEvent());
+            }
+            return _loader();
+          }
+
+          if (context.read<NewsBloc>().state is! NewsLoading) {
+            canFetchData = true;
+          }
+
+          return _singleNewsTile(index);
+        },
       ),
     );
   }

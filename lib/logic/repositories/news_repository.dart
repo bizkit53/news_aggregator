@@ -1,7 +1,5 @@
 // ignore_for_file: avoid_dynamic_calls
 
-import 'dart:developer';
-
 import 'package:dio/dio.dart';
 import 'package:injectable/injectable.dart';
 import 'package:news_aggregator/logic/services/network_services/news_network_service.dart';
@@ -32,7 +30,7 @@ class NewsRepository {
     );
 
     _decodeNews(response: response, targetList: _topNews);
-    log(response.data.toString());
+
     return _topNews;
   }
 
