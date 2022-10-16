@@ -1,8 +1,9 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:logger/logger.dart';
+import 'package:news_aggregator/logic/blocs/password/password_bloc.dart';
 import 'package:news_aggregator/logic/utils/import_utils.dart';
 import 'package:news_aggregator/presentation/widgets/import_widgets.dart';
-import 'package:provider/provider.dart';
 
 /// Page shown before login or register page
 class LoginPage extends StatefulWidget {
@@ -29,8 +30,8 @@ class _LoginPageState extends State<LoginPage> {
 
   @override
   Widget build(BuildContext context) {
-    return ChangeNotifierProvider<PasswordFieldHelper>(
-      create: (_) => PasswordFieldHelper(),
+    return BlocProvider(
+      create: (_) => PasswordBloc(),
       child: CustomScaffold(
         child: Column(
           mainAxisAlignment: MainAxisAlignment.spaceAround,
@@ -57,7 +58,7 @@ class _LoginPageState extends State<LoginPage> {
                   Align(
                     alignment: Alignment.centerRight,
                     child: TextButton(
-                      // TODO(bizkit53): implement forgot password button
+                      // TODO(piotr-ciuba): implement forgot password button
                       onPressed: () {},
                       child: Text(context.loc.forgotPassword),
                     ),
@@ -74,7 +75,7 @@ class _LoginPageState extends State<LoginPage> {
                     log.d('Login button pressed');
                     if (formKey.currentState!.validate()) {
                       log.d('Form is valid');
-                      // TODO(bizkit53): implement login
+                      // TODO(piotr-ciuba): implement login
                     }
                   },
                 ),
@@ -88,7 +89,7 @@ class _LoginPageState extends State<LoginPage> {
               children: [
                 Text(context.loc.noAccountYet),
                 TextButton(
-                  // TODO(bizkit53): implement register button
+                  // TODO(piotr-ciuba): implement register button
                   onPressed: () {},
                   child: Text(context.loc.registerNow),
                 ),

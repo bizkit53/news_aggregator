@@ -30,5 +30,7 @@
     "passwordChanged": "Hasło zmienione!",
     "passwordChangedDescription": "Twoje hasło zostało pomyślnie zmienione",
     "backToLogin": "Wróć do logowania",
-    "search": "Szukaj"
+    "search": "Szukaj",
+    "passwordDoNotMatch": "Hasła nie są takie same",
+    "passwordNotValid": "Użyj 8-20 znaków, małej i wielkiej litery oraz cyfry"
 }

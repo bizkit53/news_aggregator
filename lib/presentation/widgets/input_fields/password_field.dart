@@ -1,7 +1,8 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:news_aggregator/constans/import_constants.dart';
+import 'package:news_aggregator/logic/blocs/password/password_bloc.dart';
 import 'package:news_aggregator/logic/utils/import_utils.dart';
-import 'package:provider/provider.dart';
 
 /// Text form field for password
 class PasswordField extends StatelessWidget {
@@ -28,10 +29,12 @@ class PasswordField extends StatelessWidget {
           prefixIcon: const Icon(Icons.lock),
           suffixIcon: IconButton(
             onPressed: () {
-              context.read<PasswordFieldHelper>().toggleVisibility();
+              context.read<PasswordBloc>().add(
+                    PasswordVisibilityChangedEvent(),
+                  );
             },
             icon: Icon(
-              context.watch<PasswordFieldHelper>().isHidden
+              context.watch<PasswordBloc>().state.isHidden
                   ? Icons.visibility_off
                   : Icons.visibility,
             ),
@@ -43,11 +46,13 @@ class PasswordField extends StatelessWidget {
             borderRadius: BorderRadius.circular(borderRadius),
           ),
         ),
-        obscureText: context.watch<PasswordFieldHelper>().isHidden,
+        obscureText: context.watch<PasswordBloc>().state.isHidden,
         validator: (String? value) {
-          // TODO(bizkit53): extend password validation
-          if (value == null || value.isEmpty) {
-            return context.loc.passwordCannotBeEmpty;
+          context.read<PasswordBloc>().add(
+                PasswordValidationEvent(password: value ?? ''),
+              );
+          if (!context.read<PasswordBloc>().state.isPasswordValid) {
+            return context.loc.passwordNotValid;
           }
           return null;
         },

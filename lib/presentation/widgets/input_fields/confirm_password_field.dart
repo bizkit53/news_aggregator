@@ -1,7 +1,8 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:news_aggregator/constans/import_constants.dart';
+import 'package:news_aggregator/logic/blocs/password/password_bloc.dart';
 import 'package:news_aggregator/logic/utils/import_utils.dart';
-import 'package:provider/provider.dart';
 
 /// Text form field for confirm password
 class ConfirmPasswordField extends StatelessWidget {
@@ -9,10 +10,14 @@ class ConfirmPasswordField extends StatelessWidget {
   const ConfirmPasswordField({
     super.key,
     required this.controller,
+    required this.passwordController,
   });
 
   /// Text controller of confirm password field
   final TextEditingController controller;
+
+  /// Text controller of password field for validating purposes
+  final TextEditingController passwordController;
 
   @override
   Widget build(BuildContext context) {
@@ -27,10 +32,16 @@ class ConfirmPasswordField extends StatelessWidget {
             borderRadius: BorderRadius.circular(borderRadius),
           ),
         ),
-        obscureText: context.watch<PasswordFieldHelper>().isHidden,
+        obscureText: context.watch<PasswordBloc>().state.isHidden,
         validator: (String? value) {
-          if (value == null || value.isEmpty) {
-            return context.loc.passwordCannotBeEmpty;
+          context.read<PasswordBloc>().add(
+                ConfirmPasswordValidationEvent(
+                  password: value ?? '',
+                  confirmPassword: passwordController.text,
+                ),
+              );
+          if (!context.read<PasswordBloc>().state.isConfirmPasswordValid) {
+            return context.loc.passwordDoNotMatch;
           }
           return null;
         },

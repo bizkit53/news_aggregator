@@ -1,5 +1,7 @@
 import 'package:equatable/equatable.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:logger/logger.dart';
+import 'package:news_aggregator/logic/utils/import_utils.dart';
 
 part 'password_event.dart';
 part 'password_state.dart';
@@ -9,6 +11,7 @@ class PasswordBloc extends Bloc<PasswordEvent, PasswordState> {
   /// Constructor
   PasswordBloc() : super(PasswordInitial()) {
     on<PasswordVisibilityChangedEvent>((event, emit) {
+      _log.i('$PasswordVisibilityChangedEvent called');
       emit(
         PasswordFieldChanged(
           isHidden: !state.isHidden,
@@ -16,9 +19,11 @@ class PasswordBloc extends Bloc<PasswordEvent, PasswordState> {
           isConfirmPasswordValid: state.isConfirmPasswordValid,
         ),
       );
+      _log.i('$PasswordFieldChanged emitted');
     });
 
     on<PasswordValidationEvent>((event, emit) {
+      _log.i('$PasswordValidationEvent called');
       emit(
         PasswordFieldChanged(
           isHidden: state.isHidden,
@@ -26,9 +31,11 @@ class PasswordBloc extends Bloc<PasswordEvent, PasswordState> {
           isConfirmPasswordValid: state.isConfirmPasswordValid,
         ),
       );
+      _log.i('$PasswordFieldChanged emitted');
     });
 
     on<ConfirmPasswordValidationEvent>((event, emit) {
+      _log.i('$ConfirmPasswordValidationEvent called');
       emit(
         PasswordFieldChanged(
           isHidden: !state.isHidden,
@@ -39,8 +46,12 @@ class PasswordBloc extends Bloc<PasswordEvent, PasswordState> {
           ),
         ),
       );
+      _log.i('$PasswordFieldChanged emitted');
     });
   }
+
+  /// Log style customizer
+  final Logger _log = logger(PasswordBloc);
 
   bool _validatePassword({required String password}) {
     final bool hasRightLength = password.length >= 8 && password.length <= 20;
@@ -56,7 +67,7 @@ class PasswordBloc extends Bloc<PasswordEvent, PasswordState> {
     required String confirmPassword,
   }) {
     bool result = true;
-    if (password != confirmPassword) result = false;
+    if (confirmPassword.isEmpty || password != confirmPassword) result = false;
 
     return result;
   }

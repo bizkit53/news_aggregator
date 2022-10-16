@@ -1,9 +1,10 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:logger/logger.dart';
 import 'package:news_aggregator/constans/import_constants.dart';
+import 'package:news_aggregator/logic/blocs/password/password_bloc.dart';
 import 'package:news_aggregator/logic/utils/import_utils.dart';
 import 'package:news_aggregator/presentation/widgets/import_widgets.dart';
-import 'package:provider/provider.dart';
 
 /// Page for setting new password for user's account
 class NewPasswordPage extends StatefulWidget {
@@ -31,8 +32,8 @@ class _NewPasswordPageState extends State<NewPasswordPage> {
 
   @override
   Widget build(BuildContext context) {
-    return ChangeNotifierProvider<PasswordFieldHelper>(
-      create: (_) => PasswordFieldHelper(),
+    return BlocProvider(
+      create: (_) => PasswordBloc(),
       child: CustomScaffold(
         child: Column(
           mainAxisAlignment: MainAxisAlignment.spaceBetween,
@@ -69,7 +70,10 @@ class _NewPasswordPageState extends State<NewPasswordPage> {
                     controller: passwordController,
                     settingNewPassword: true,
                   ),
-                  ConfirmPasswordField(controller: confirmPasswordController),
+                  ConfirmPasswordField(
+                    controller: confirmPasswordController,
+                    passwordController: passwordController,
+                  ),
                   // reset password button
                   CustomWideButton(
                     child: Text(context.loc.resetPassword),
@@ -77,7 +81,7 @@ class _NewPasswordPageState extends State<NewPasswordPage> {
                       log.d('Reset password button pressed');
                       if (formKey.currentState!.validate()) {
                         log.d('Form is valid');
-                        // TODO(bizkit53): implement new password setting
+                        // TODO(piotr-ciuba): implement new password setting
                       }
                     },
                   ),
