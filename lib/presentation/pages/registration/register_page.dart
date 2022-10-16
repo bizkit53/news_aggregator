@@ -1,12 +1,13 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:logger/logger.dart';
 import 'package:news_aggregator/constans/import_constants.dart';
+import 'package:news_aggregator/logic/blocs/password/password_bloc.dart';
 import 'package:news_aggregator/logic/repositories/auth_repository.dart';
 import 'package:news_aggregator/logic/utils/import_utils.dart';
 import 'package:news_aggregator/presentation/widgets/import_widgets.dart';
-import 'package:provider/provider.dart';
 
 /// Page shown before login or register page
 class RegisterPage extends StatefulWidget {
@@ -55,8 +56,8 @@ class _RegisterPageState extends State<RegisterPage> {
 
   @override
   Widget build(BuildContext context) {
-    return ChangeNotifierProvider<PasswordFieldHelper>(
-      create: (_) => PasswordFieldHelper(),
+    return BlocProvider(
+      create: (_) => PasswordBloc(),
       child: CustomScaffold(
         child: Column(
           mainAxisAlignment: MainAxisAlignment.spaceAround,
@@ -77,29 +78,13 @@ class _RegisterPageState extends State<RegisterPage> {
               key: formKey,
               child: Wrap(
                 children: [
-                  // username field
-                  Padding(
-                    padding: paddingBottom15,
-                    child: TextFormField(
-                      controller: usernameController,
-                      decoration: InputDecoration(
-                        prefixIcon: const Icon(Icons.person),
-                        labelText: context.loc.username,
-                        border: OutlineInputBorder(
-                          borderRadius: BorderRadius.circular(borderRadius),
-                        ),
-                      ),
-                      validator: (String? value) {
-                        if (value == null || value.isEmpty) {
-                          return context.loc.usernameCannotBeEmpty;
-                        }
-                        return null;
-                      },
-                    ),
-                  ),
+                  _usernameField(context),
                   EmailField(controller: emailController),
                   PasswordField(controller: passwordController),
-                  ConfirmPasswordField(controller: confirmPasswordController),
+                  ConfirmPasswordField(
+                    controller: confirmPasswordController,
+                    passwordController: passwordController,
+                  ),
                 ],
               ),
             ),
@@ -117,7 +102,7 @@ class _RegisterPageState extends State<RegisterPage> {
                         email: emailController.text,
                         password: passwordController.text,
                       );
-                      // TODO(bizkit53): implement UI feedback
+                      // TODO(piotr-ciuba): implement UI feedback
                     }
                   },
                 ),
@@ -127,6 +112,29 @@ class _RegisterPageState extends State<RegisterPage> {
             ),
           ],
         ),
+      ),
+    );
+  }
+
+  Padding _usernameField(BuildContext context) {
+    return Padding(
+      padding: paddingBottom15,
+      child: TextFormField(
+        controller: usernameController,
+        decoration: InputDecoration(
+          prefixIcon: const Icon(Icons.person),
+          labelText: context.loc.username,
+          border: OutlineInputBorder(
+            borderRadius: BorderRadius.circular(borderRadius),
+          ),
+        ),
+        validator: (String? value) {
+          // TODO(piotr-ciuba): implement username validation
+          if (value == null || value.isEmpty) {
+            return context.loc.usernameCannotBeEmpty;
+          }
+          return null;
+        },
       ),
     );
   }

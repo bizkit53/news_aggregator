@@ -30,5 +30,7 @@
     "passwordChanged": "Password changed!",
     "passwordChangedDescription": "Your password has been changed successfully",
     "backToLogin": "Back to login",
-    "search": "Search"
+    "search": "Search",
+    "passwordDoNotMatch": "Passwords do not match",
+    "passwordNotValid": "Use 8-20 signs, small letter, big letter and digit"
 }
