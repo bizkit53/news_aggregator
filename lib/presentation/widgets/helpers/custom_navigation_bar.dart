@@ -1,8 +1,8 @@
+import 'package:animated_bottom_navigation_bar/animated_bottom_navigation_bar.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:news_aggregator/constans/import_constants.dart';
 import 'package:news_aggregator/logic/blocs/navigation_bar/navigation_bar_bloc.dart';
-import 'package:news_aggregator/logic/utils/import_utils.dart';
 
 /// Bottom navigation bar with custom style
 class CustomNavigationBar extends StatelessWidget {
@@ -11,37 +11,28 @@ class CustomNavigationBar extends StatelessWidget {
     super.key,
   });
 
+  List<IconData> get _iconlist {
+    return const [
+      Icons.home_outlined,
+      Icons.category_outlined,
+      Icons.bookmark_border_outlined,
+    ];
+  }
+
   @override
   Widget build(BuildContext context) {
-    return BottomNavigationBar(
-      currentIndex: context.watch<NavigationBarBloc>().state.selectedIndex,
-      showSelectedLabels: false,
-      showUnselectedLabels: false,
-      backgroundColor: Theme.of(context).primaryColor,
-      selectedItemColor: Theme.of(context).colorScheme.onPrimary,
-      unselectedItemColor: Theme.of(context)
-          .colorScheme
-          .onPrimary
-          .withOpacity(navBarIconOpacity),
+    return AnimatedBottomNavigationBar(
+      icons: _iconlist,
+      activeIndex: context.watch<NavigationBarBloc>().state.selectedIndex,
+      activeColor: Theme.of(context).primaryColor,
+      gapLocation: GapLocation.none,
+      leftCornerRadius: navBarCornerRadius,
+      rightCornerRadius: navBarCornerRadius,
       onTap: (int index) {
         context.read<NavigationBarBloc>().add(
               IndexChangedEvent(index: index),
             );
       },
-      items: [
-        BottomNavigationBarItem(
-          icon: const Icon(Icons.home),
-          label: context.loc.home,
-        ),
-        BottomNavigationBarItem(
-          icon: const Icon(Icons.category),
-          label: context.loc.categories,
-        ),
-        BottomNavigationBarItem(
-          icon: const Icon(Icons.bookmark),
-          label: context.loc.saved,
-        ),
-      ],
     );
   }
 }
