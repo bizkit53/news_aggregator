@@ -6,6 +6,7 @@ import 'package:flutter_screenutil/flutter_screenutil.dart';
 double wideButtonHeight = 56.h;
 double borderRadius = 10.r;
 double borderOpacity = 0.5.r;
+double navBarIconOpacity = 0.5.r;
 double circularBorderRadius = 30.r;
 
 // News tile

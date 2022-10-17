@@ -7,6 +7,4 @@ const String forgotPasswordRoute = '/forgotPassword';
 const String verificationRoute = '/verification';
 const String setNewPasswordRoute = '/setNewPassword';
 const String passwordChangedRoute = '/passwordChanged';
-const String feedRoute = '/feed';
-const String categoriesRoute = '/categories';
-const String savedArticlesRoute = '/savedArticles';
+const String mainRoute = '/main';
