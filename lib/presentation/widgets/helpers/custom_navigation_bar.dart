@@ -14,7 +14,7 @@ class CustomNavigationBar extends StatelessWidget {
   List<IconData> get _iconlist {
     return const [
       Icons.home_outlined,
-      Icons.category_outlined,
+      Icons.search_outlined,
       Icons.bookmark_border_outlined,
     ];
   }
