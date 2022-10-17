@@ -1,9 +1,9 @@
 import 'package:flutter/material.dart';
 
-/// Page for choosing categories of top news
-class CategoriesPage extends StatelessWidget {
+/// Page for viewing search results
+class SearchPage extends StatelessWidget {
   /// Constructor
-  const CategoriesPage({super.key});
+  const SearchPage({super.key});
 
   @override
   Widget build(BuildContext context) {

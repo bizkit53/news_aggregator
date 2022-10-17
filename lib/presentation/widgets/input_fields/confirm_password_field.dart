@@ -29,7 +29,7 @@ class ConfirmPasswordField extends StatelessWidget {
           prefixIcon: const Icon(Icons.lock),
           labelText: context.loc.confirmPassword,
           border: OutlineInputBorder(
-            borderRadius: BorderRadius.circular(borderRadius),
+            borderRadius: BorderRadius.circular(circularBorderRadius),
           ),
         ),
         obscureText: context.watch<PasswordBloc>().state.isHidden,

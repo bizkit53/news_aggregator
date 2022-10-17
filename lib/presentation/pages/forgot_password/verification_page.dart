@@ -1,7 +1,6 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:logger/logger.dart';
 import 'package:news_aggregator/constans/import_constants.dart';
 import 'package:news_aggregator/logic/repositories/auth_repository.dart';
@@ -65,14 +64,14 @@ class VerificationPage extends StatelessWidget {
             children: [
               PinCodeTextField(
                 appContext: context,
-                length: 4,
+                length: pinCodeLength,
                 onChanged: (String pinCode) {},
                 keyboardType: TextInputType.number,
                 pinTheme: PinTheme(
                   shape: PinCodeFieldShape.box,
                   borderRadius: BorderRadius.circular(borderRadius),
-                  fieldHeight: 60.r,
-                  fieldWidth: 60.r,
+                  fieldHeight: pinCodeSquareSize,
+                  fieldWidth: pinCodeSquareSize,
                   inactiveColor: Theme.of(context).primaryColor,
                 ),
               ),

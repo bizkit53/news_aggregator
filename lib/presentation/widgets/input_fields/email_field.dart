@@ -24,7 +24,7 @@ class EmailField extends StatelessWidget {
           prefixIcon: const Icon(Icons.email),
           labelText: context.loc.email,
           border: OutlineInputBorder(
-            borderRadius: BorderRadius.circular(borderRadius),
+            borderRadius: BorderRadius.circular(circularBorderRadius),
           ),
         ),
         validator: (String? value) {

@@ -35,5 +35,8 @@
     "passwordNotValid": "Use 8-20 signs, small letter, big letter and digit",
     "home": "Home",
     "categories": "Categories",
-    "saved": "Saved"
+    "saved": "Saved",
+    "continueAction": "Continue",
+    "chooseTopic": "Choose a topic to start reading",
+    "skip": "Skip"
 }
