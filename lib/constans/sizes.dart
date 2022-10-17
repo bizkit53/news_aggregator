@@ -30,3 +30,7 @@ double mediumImageScale = 1.25.r;
 int categoryGridCrossAxisCount = 3;
 double categoryBackgroundOpacity = 0.07.r;
 double categoryBorderWith = 3.r;
+
+// Pin code
+int pinCodeLength = 4;
+double pinCodeSquareSize = 60.r;
