@@ -3,6 +3,7 @@ import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:news_aggregator/logic/blocs/auth/auth_bloc.dart';
+import 'package:news_aggregator/logic/blocs/navigation_bar/navigation_bar_bloc.dart';
 import 'package:news_aggregator/logic/blocs/news/news_bloc.dart';
 import 'package:news_aggregator/logic/blocs/signin/signin_bloc.dart';
 import 'package:news_aggregator/logic/blocs/signup/signup_bloc.dart';
@@ -44,16 +45,14 @@ class BlocInjector extends StatelessWidget {
     newsRepository: _newsRepository,
   );
 
+  final NavigationBarBloc _navigationBarBloc = NavigationBarBloc();
+
   @override
   Widget build(BuildContext context) {
     return MultiRepositoryProvider(
       providers: [
-        RepositoryProvider.value(
-          value: _authRepository,
-        ),
-        RepositoryProvider.value(
-          value: _newsRepository,
-        ),
+        RepositoryProvider.value(value: _authRepository),
+        RepositoryProvider.value(value: _newsRepository),
       ],
       child: MultiBlocProvider(
         providers: [
@@ -61,6 +60,7 @@ class BlocInjector extends StatelessWidget {
           BlocProvider.value(value: _signinBloc),
           BlocProvider.value(value: _signupBloc),
           BlocProvider.value(value: _newsBloc),
+          BlocProvider.value(value: _navigationBarBloc),
         ],
         child: child,
       ),

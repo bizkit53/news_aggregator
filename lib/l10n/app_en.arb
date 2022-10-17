@@ -32,5 +32,8 @@
     "backToLogin": "Back to login",
     "search": "Search",
     "passwordDoNotMatch": "Passwords do not match",
-    "passwordNotValid": "Use 8-20 signs, small letter, big letter and digit"
+    "passwordNotValid": "Use 8-20 signs, small letter, big letter and digit",
+    "home": "Home",
+    "categories": "Categories",
+    "saved": "Saved"
 }
