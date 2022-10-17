@@ -1,63 +1,30 @@
 import 'package:flutter/material.dart';
-import 'package:news_aggregator/constans/sizes.dart';
-import 'package:news_aggregator/logic/utils/import_utils.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:news_aggregator/logic/blocs/navigation_bar/navigation_bar_bloc.dart';
 import 'package:news_aggregator/presentation/pages/main/categories_page.dart';
 import 'package:news_aggregator/presentation/pages/main/feed_page.dart';
 import 'package:news_aggregator/presentation/pages/main/saved_articles_page.dart';
+import 'package:news_aggregator/presentation/widgets/helpers/custom_navigation_bar.dart';
 
 /// Screen selector of main pages of the app
-class MainPage extends StatefulWidget {
+class MainPage extends StatelessWidget {
   /// Constructor
   const MainPage({super.key});
 
-  @override
-  State<MainPage> createState() => _MainPageState();
-}
-
-class _MainPageState extends State<MainPage> {
-  int _selectedIndex = 0;
-
-  final List<Widget> _pages = [
-    const FeedPage(),
-    const CategoriesPage(),
-    const SavedArticlesPage(),
-  ];
+  List<Widget> get _pages => const [
+        FeedPage(),
+        CategoriesPage(),
+        SavedArticlesPage(),
+      ];
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       body: IndexedStack(
-        index: _selectedIndex,
+        index: context.watch<NavigationBarBloc>().state.selectedIndex,
         children: _pages,
       ),
-      bottomNavigationBar: BottomNavigationBar(
-        currentIndex: _selectedIndex,
-        showSelectedLabels: false,
-        showUnselectedLabels: false,
-        backgroundColor: Theme.of(context).primaryColor,
-        selectedItemColor: Theme.of(context).colorScheme.onPrimary,
-        unselectedItemColor: Theme.of(context)
-            .colorScheme
-            .onPrimary
-            .withOpacity(navBarIconOpacity),
-        onTap: (int index) {
-          setState(() => _selectedIndex = index);
-        },
-        items: [
-          BottomNavigationBarItem(
-            icon: const Icon(Icons.home),
-            label: context.loc.home,
-          ),
-          BottomNavigationBarItem(
-            icon: const Icon(Icons.category),
-            label: context.loc.categories,
-          ),
-          BottomNavigationBarItem(
-            icon: const Icon(Icons.bookmark),
-            label: context.loc.saved,
-          ),
-        ],
-      ),
+      bottomNavigationBar: const CustomNavigationBar(),
     );
   }
 }
