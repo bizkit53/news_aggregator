@@ -125,7 +125,7 @@ class _RegisterPageState extends State<RegisterPage> {
           prefixIcon: const Icon(Icons.person),
           labelText: context.loc.username,
           border: OutlineInputBorder(
-            borderRadius: BorderRadius.circular(borderRadius),
+            borderRadius: BorderRadius.circular(circularBorderRadius),
           ),
         ),
         validator: (String? value) {

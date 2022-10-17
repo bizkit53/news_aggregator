@@ -27,7 +27,7 @@ class CustomWideButton extends StatelessWidget {
           onPressed: onPressed,
           style: ElevatedButton.styleFrom(
             shape: RoundedRectangleBorder(
-              borderRadius: BorderRadius.circular(borderRadius),
+              borderRadius: BorderRadius.circular(circularBorderRadius),
             ),
           ),
           child: child,

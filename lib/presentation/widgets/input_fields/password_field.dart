@@ -43,7 +43,7 @@ class PasswordField extends StatelessWidget {
               ? context.loc.newPassword
               : context.loc.password,
           border: OutlineInputBorder(
-            borderRadius: BorderRadius.circular(borderRadius),
+            borderRadius: BorderRadius.circular(circularBorderRadius),
           ),
         ),
         obscureText: context.watch<PasswordBloc>().state.isHidden,
