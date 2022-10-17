@@ -8,3 +8,4 @@ const String verificationRoute = '/verification';
 const String setNewPasswordRoute = '/setNewPassword';
 const String passwordChangedRoute = '/passwordChanged';
 const String mainRoute = '/main';
+const String categoriesRoute = '/categories';

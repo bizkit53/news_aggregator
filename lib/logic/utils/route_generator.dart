@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:news_aggregator/constans/routes.dart';
 import 'package:news_aggregator/logic/utils/bloc_injector.dart';
 import 'package:news_aggregator/logic/utils/logger.dart';
+import 'package:news_aggregator/presentation/pages/categories_page.dart';
 import 'package:news_aggregator/presentation/pages/forgot_password/forgot_password_page.dart';
 import 'package:news_aggregator/presentation/pages/forgot_password/new_password_page.dart';
 import 'package:news_aggregator/presentation/pages/forgot_password/password_changed.dart';
@@ -36,6 +37,8 @@ class RouteGenerator {
         return _pageWithBloc(child: const PasswordChangedPage());
       case mainRoute:
         return _pageWithBloc(child: const MainPage());
+      case categoriesRoute:
+        return _pageWithBloc(child: const CategoriesPage());
 
       default:
         return _errorRoute();
