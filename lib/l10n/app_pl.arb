@@ -35,5 +35,8 @@
     "passwordNotValid": "Użyj 8-20 znaków, małej i wielkiej litery oraz cyfry",
     "home": "Ekran główny",
     "categories": "Kategorie",
-    "saved": "Zapisane"
+    "saved": "Zapisane",
+    "continueAction": "Kontynuuj",
+    "chooseTopic": "Wybierz temat zanim zaczniesz czytać",
+    "skip": "Pomiń"
 }

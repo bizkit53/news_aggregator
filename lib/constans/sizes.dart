@@ -25,3 +25,8 @@ double dividerThickness = 1.h;
 double smallImageScale = 0.75.r;
 double mediumImageSquareSize = 150.r;
 double mediumImageScale = 1.25.r;
+
+// Category page
+int categoryGridCrossAxisCount = 3;
+double categoryBackgroundOpacity = 0.07.r;
+double categoryBorderWith = 3.r;
