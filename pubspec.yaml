@@ -9,6 +9,8 @@ environment:
   sdk: ">=2.17.0 <3.0.0"
 
 dependencies:
+  animated_bottom_navigation_bar: ^1.1.0
+  cached_network_image: ^3.2.2
   cloud_firestore: ^3.3.0
   cupertino_icons: ^1.0.2
   device_preview: ^1.1.0
@@ -30,7 +32,9 @@ dependencies:
   injectable: ^1.5.3
   json_serializable: ^6.4.0
   logger: ^1.1.0
+  pin_code_fields: ^7.4.0
   rename: ^2.0.1
+  url_launcher: ^6.1.6
   validators: ^3.0.0
   very_good_analysis: ^3.0.2
 
@@ -52,6 +56,7 @@ flutter:
     - config/
     - test/logic/repositories/news_repository/
     - assets/
+    - assets/categories/
 
 flutter_icons:
   android: false

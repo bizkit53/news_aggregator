@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:news_aggregator/constans/spacing.dart';
+import 'package:news_aggregator/constans/import_constants.dart';
 
 /// Shortcut for scaffold with padding
 class CustomScaffold extends StatelessWidget {

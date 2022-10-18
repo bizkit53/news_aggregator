@@ -1,8 +1,7 @@
-// ignore_for_file: public_member_api_docs, sort_constructors_first
 import 'package:flutter/material.dart';
-import 'package:news_aggregator/constans/sizes.dart';
-import 'package:news_aggregator/constans/spacing.dart';
+import 'package:news_aggregator/constans/import_constants.dart';
 
+/// Reusable button taking full width of the screen
 class CustomWideButton extends StatelessWidget {
   /// Constructor
   const CustomWideButton({
@@ -11,7 +10,10 @@ class CustomWideButton extends StatelessWidget {
     this.onPressed,
   });
 
+  /// Child widget of the button
   final Widget child;
+
+  /// On pressed callback
   final void Function()? onPressed;
 
   @override
@@ -25,7 +27,7 @@ class CustomWideButton extends StatelessWidget {
           onPressed: onPressed,
           style: ElevatedButton.styleFrom(
             shape: RoundedRectangleBorder(
-              borderRadius: BorderRadius.circular(borderRadius),
+              borderRadius: BorderRadius.circular(circularBorderRadius),
             ),
           ),
           child: child,
