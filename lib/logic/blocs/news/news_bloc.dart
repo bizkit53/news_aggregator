@@ -1,3 +1,4 @@
+import 'dart:async';
 import 'package:equatable/equatable.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:logger/logger.dart';
@@ -12,41 +13,52 @@ part 'news_state.dart';
 class NewsBloc extends Bloc<NewsEvent, NewsState> {
   /// Constructor
   NewsBloc({required this.newsRepository}) : super(const NewsInitial()) {
-    List<News> resultList = [];
+    on<GetTopNewsEvent>(_getTopNews);
+    on<GetSearchNewsEvent>(_getSearchNews);
+    on<ClearResultsEvent>(_clearResults);
+  }
 
-    on<GetTopNewsEvent>((event, emit) async {
-      _log
-        ..i('$GetTopNewsEvent called')
-        ..i('$NewsLoading emitted');
-      emit(NewsLoading(newsList: state.newsList));
+  FutureOr<void> _getTopNews(
+    GetTopNewsEvent event,
+    Emitter<NewsState> emit,
+  ) async {
+    _log
+      ..i('$GetTopNewsEvent called')
+      ..i('$NewsLoading emitted');
+    emit(NewsLoading(newsList: state.newsList));
 
-      resultList = await newsRepository.getNews();
+    final List<News> resultList = await newsRepository.getNews();
 
-      _log.i('$TopNewsLoaded emitted');
-      emit(TopNewsLoaded(newsList: resultList));
-    });
+    _log.i('$TopNewsLoaded emitted');
+    emit(TopNewsLoaded(newsList: resultList));
+  }
 
-    on<GetSearchNewsEvent>((event, emit) async {
-      _log
-        ..i('$GetSearchNewsEvent called')
-        ..i('$NewsLoading emitted');
-      emit(NewsLoading(newsList: state.newsList));
+  FutureOr<void> _getSearchNews(
+    GetSearchNewsEvent event,
+    Emitter<NewsState> emit,
+  ) async {
+    _log
+      ..i('$GetSearchNewsEvent called')
+      ..i('$NewsLoading emitted');
+    emit(NewsLoading(newsList: state.newsList));
 
-      resultList = await newsRepository.searchNews(
-        searchPattern: event.searchQuery,
-      );
+    final List<News> resultList = await newsRepository.searchNews(
+      searchPattern: event.searchQuery,
+    );
 
-      _log.i('$SearchNewsLoaded emitted');
-      emit(SearchNewsLoaded(newsList: resultList));
-    });
+    _log.i('$SearchNewsLoaded emitted');
+    emit(SearchNewsLoaded(newsList: resultList));
+  }
 
-    on<ClearResultsEvent>((event, emit) {
-      _log
-        ..i('$ClearResultsEvent called')
-        ..i('$NewsInitial emitted');
+  FutureOr<void> _clearResults(
+    ClearResultsEvent event,
+    Emitter<NewsState> emit,
+  ) {
+    _log
+      ..i('$ClearResultsEvent called')
+      ..i('$NewsInitial emitted');
 
-      emit(const NewsInitial());
-    });
+    emit(const NewsInitial());
   }
 
   /// Authorization Firebase handler
