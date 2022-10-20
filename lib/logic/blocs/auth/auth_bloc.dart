@@ -7,6 +7,7 @@ import 'package:logger/logger.dart';
 
 import 'package:news_aggregator/logic/repositories/auth_repository.dart';
 import 'package:news_aggregator/logic/utils/logger.dart';
+import 'package:news_aggregator/models/custom_error.dart';
 
 part 'auth_event.dart';
 part 'auth_state.dart';
@@ -28,7 +29,7 @@ class AuthBloc extends Bloc<AuthEvent, AuthState> {
           emit(AuthenticatedState(user: event.user));
         } else {
           _log.i('$UnauthenticatedState emitted');
-          emit(const UnauthenticatedState());
+          emit(UnauthenticatedState(error: state.error));
         }
       },
     );
@@ -40,6 +41,23 @@ class AuthBloc extends Bloc<AuthEvent, AuthState> {
 
         _log.i('$UnauthenticatedState emitted');
         emit(const UnauthenticatedState());
+      },
+    );
+
+    on<SubmitSignInEvent>(
+      (event, emit) async {
+        _log.i('$SubmitSignInEvent called');
+        emit(const SignInSubmitted());
+
+        try {
+          await authRepository.signIn(
+            email: event.email,
+            password: event.password,
+          );
+        } on CustomError catch (e) {
+          _log.w('$UnauthenticatedState emitted');
+          emit(UnauthenticatedState(error: e));
+        }
       },
     );
   }
