@@ -1,3 +1,4 @@
+import 'dart:async';
 import 'package:equatable/equatable.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:logger/logger.dart';
@@ -10,11 +11,16 @@ part 'navigation_bar_state.dart';
 class NavigationBarBloc extends Bloc<NavigationBarEvent, NavigationBarState> {
   /// Constructor
   NavigationBarBloc() : super(NavigationBarInitial()) {
-    on<IndexChangedEvent>((event, emit) {
-      _log.i('$IndexChangedEvent called');
-      emit(NavigationBarChanged(selectedIndex: event.index));
-      _log.i('$NavigationBarChanged emitted');
-    });
+    on<IndexChangedEvent>(_indexChanged);
+  }
+
+  FutureOr<void> _indexChanged(
+    IndexChangedEvent event,
+    Emitter<NavigationBarState> emit,
+  ) {
+    _log.i('$IndexChangedEvent called');
+    emit(NavigationBarChanged(selectedIndex: event.index));
+    _log.i('$NavigationBarChanged emitted');
   }
 
   /// Log style customizer
