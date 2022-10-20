@@ -16,10 +16,12 @@ void main() {
   late MockAuthRepository mockAuthRepository;
   late MockUser mockUser;
   late final CustomError customError;
+  late final String name;
   late final String email;
   late final String password;
 
   setUpAll(() {
+    name = 'Bob';
     email = 'bob@somedomain.com';
     password = 'password';
     customError = const CustomError(
@@ -201,6 +203,60 @@ void main() {
         ),
         expect: () => <AuthState>[
           const SignInSubmitted(),
+          UnauthenticatedState(error: customError),
+        ],
+      );
+    },
+  );
+
+  group(
+    'AuthBloc - sign up:',
+    () {
+      blocTest<AuthBloc, AuthState>(
+        'successful',
+        build: () {
+          when(mockAuthRepository.user).thenAnswer(
+            (realInvocation) => Stream<User?>.fromIterable([mockUser]),
+          );
+          return AuthBloc(authRepository: mockAuthRepository);
+        },
+        act: (bloc) => bloc.add(
+          SubmitSignUpEvent(
+            name: name,
+            email: email,
+            password: password,
+          ),
+        ),
+        expect: () => <AuthState>[
+          const SignUpSubmitted(),
+          AuthenticatedState(user: mockUser),
+        ],
+      );
+
+      blocTest<AuthBloc, AuthState>(
+        'failed - CustomError thrown',
+        build: () {
+          when(mockAuthRepository.user).thenAnswer(
+            (realInvocation) => Stream<User?>.fromIterable([null]),
+          );
+          when(
+            mockAuthRepository.signUp(
+              name: name,
+              email: email,
+              password: password,
+            ),
+          ).thenThrow(customError);
+          return AuthBloc(authRepository: mockAuthRepository);
+        },
+        act: (bloc) => bloc.add(
+          SubmitSignUpEvent(
+            name: name,
+            email: email,
+            password: password,
+          ),
+        ),
+        expect: () => <AuthState>[
+          const SignUpSubmitted(),
           UnauthenticatedState(error: customError),
         ],
       );
