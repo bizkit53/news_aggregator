@@ -5,7 +5,6 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:news_aggregator/logic/blocs/auth/auth_bloc.dart';
 import 'package:news_aggregator/logic/blocs/navigation_bar/navigation_bar_bloc.dart';
 import 'package:news_aggregator/logic/blocs/news/news_bloc.dart';
-import 'package:news_aggregator/logic/blocs/signup/signup_bloc.dart';
 import 'package:news_aggregator/logic/repositories/auth_repository.dart';
 import 'package:news_aggregator/logic/repositories/news_repository.dart';
 import 'package:news_aggregator/logic/utils/injector.dart';
@@ -32,10 +31,6 @@ class BlocInjector extends StatelessWidget {
     authRepository: _authRepository,
   );
 
-  late final SignupBloc _signupBloc = SignupBloc(
-    authRepository: _authRepository,
-  );
-
   late final NewsBloc _newsBloc = NewsBloc(
     newsRepository: _newsRepository,
   );
@@ -52,7 +47,6 @@ class BlocInjector extends StatelessWidget {
       child: MultiBlocProvider(
         providers: [
           BlocProvider.value(value: _authBloc),
-          BlocProvider.value(value: _signupBloc),
           BlocProvider.value(value: _newsBloc),
           BlocProvider.value(value: _navigationBarBloc),
         ],

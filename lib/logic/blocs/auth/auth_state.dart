@@ -28,5 +28,9 @@ class UnauthenticatedState extends AuthState {
 }
 
 class SignInSubmitted extends UnauthenticatedState {
-  const SignInSubmitted() : super(error: const CustomError());
+  const SignInSubmitted() : super(error: null);
+}
+
+class SignUpSubmitted extends UnauthenticatedState {
+  const SignUpSubmitted() : super(error: null);
 }
