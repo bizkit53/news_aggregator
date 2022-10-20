@@ -7,13 +7,32 @@ import 'package:mockito/annotations.dart';
 import 'package:mockito/mockito.dart';
 import 'package:news_aggregator/logic/blocs/auth/auth_bloc.dart';
 import 'package:news_aggregator/logic/repositories/auth_repository.dart';
+import 'package:news_aggregator/models/custom_error.dart';
 
 import 'auth_bloc_test.mocks.dart';
 
 @GenerateMocks([AuthRepository, User])
 void main() {
-  final MockAuthRepository mockAuthRepository = MockAuthRepository();
-  final MockUser mockUser = MockUser();
+  late MockAuthRepository mockAuthRepository;
+  late MockUser mockUser;
+  late final CustomError customError;
+  late final String email;
+  late final String password;
+
+  setUpAll(() {
+    email = 'bob@somedomain.com';
+    password = 'password';
+    customError = const CustomError(
+      code: '400',
+      message: 'error message',
+      plugin: 'FirebaseAuth',
+    );
+  });
+
+  setUp(() {
+    mockAuthRepository = MockAuthRepository();
+    mockUser = MockUser();
+  });
 
   group('AuthBloc - auth state changed:', () {
     test('initial state is correct', () {
@@ -34,8 +53,8 @@ void main() {
         );
         return AuthBloc(authRepository: mockAuthRepository);
       },
-      expect: () => const <AuthState>[
-        UnauthenticatedState(),
+      expect: () => <AuthState>[
+        const UnauthenticatedState(),
       ],
     );
 
@@ -54,9 +73,9 @@ void main() {
           ..add(const AuthStateChangedEvent())
           ..add(const AuthStateChangedEvent());
       },
-      expect: () => const <AuthState>[
-        UnauthenticatedState(),
-        AuthenticatedState(),
+      expect: () => <AuthState>[
+        const UnauthenticatedState(),
+        AuthenticatedState(user: mockUser),
       ],
     );
 
@@ -94,10 +113,10 @@ void main() {
           ..add(const AuthStateChangedEvent())
           ..add(const AuthStateChangedEvent());
       },
-      expect: () => const <AuthState>[
-        UnauthenticatedState(),
-        AuthenticatedState(),
-        UnauthenticatedState(),
+      expect: () => <AuthState>[
+        const UnauthenticatedState(),
+        AuthenticatedState(user: mockUser),
+        const UnauthenticatedState(),
       ],
     );
   });
@@ -114,9 +133,9 @@ void main() {
       act: (bloc) {
         bloc.add(SignOutEvent());
       },
-      expect: () => const <AuthState>[
-        AuthenticatedState(),
-        UnauthenticatedState(),
+      expect: () => <AuthState>[
+        AuthenticatedState(user: mockUser),
+        const UnauthenticatedState(),
       ],
     );
 
@@ -136,4 +155,55 @@ void main() {
       ],
     );
   });
+
+  group(
+    'AuthBloc - sign in:',
+    () {
+      blocTest<AuthBloc, AuthState>(
+        'successful',
+        build: () {
+          when(mockAuthRepository.user).thenAnswer(
+            (realInvocation) => Stream<User?>.fromIterable([mockUser]),
+          );
+          return AuthBloc(authRepository: mockAuthRepository);
+        },
+        act: (bloc) => bloc.add(
+          SubmitSignInEvent(
+            email: email,
+            password: password,
+          ),
+        ),
+        expect: () => <AuthState>[
+          const SignInSubmitted(),
+          AuthenticatedState(user: mockUser),
+        ],
+      );
+
+      blocTest<AuthBloc, AuthState>(
+        'failed - CustomError thrown',
+        build: () {
+          when(mockAuthRepository.user).thenAnswer(
+            (realInvocation) => Stream<User?>.fromIterable([null]),
+          );
+          when(
+            mockAuthRepository.signIn(
+              email: email,
+              password: password,
+            ),
+          ).thenThrow(customError);
+          return AuthBloc(authRepository: mockAuthRepository);
+        },
+        act: (bloc) => bloc.add(
+          SubmitSignInEvent(
+            email: email,
+            password: password,
+          ),
+        ),
+        expect: () => <AuthState>[
+          const SignInSubmitted(),
+          UnauthenticatedState(error: customError),
+        ],
+      );
+    },
+  );
 }
