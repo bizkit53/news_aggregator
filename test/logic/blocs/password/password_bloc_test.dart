@@ -206,4 +206,114 @@ void main() {
       ],
     );
   });
+
+  group('PasswordBloc - confirm password validation:', () {
+    blocTest<PasswordBloc, PasswordState>(
+      'invalid - empty password',
+      build: PasswordBloc.new,
+      act: (bloc) => bloc.add(
+        ConfirmPasswordValidationEvent(
+          password: emptyPassword,
+          confirmPassword: longestValidPassword,
+        ),
+      ),
+      expect: () => <PasswordState>[
+        const PasswordFieldChanged(
+          isHidden: true,
+          isPasswordValid: false,
+          isConfirmPasswordValid: false,
+        ),
+      ],
+    );
+
+    blocTest<PasswordBloc, PasswordState>(
+      'invalid - weak password',
+      build: PasswordBloc.new,
+      act: (bloc) => bloc.add(
+        ConfirmPasswordValidationEvent(
+          password: noLowerCasePassword,
+          confirmPassword: longestValidPassword,
+        ),
+      ),
+      expect: () => <PasswordState>[
+        const PasswordFieldChanged(
+          isHidden: true,
+          isPasswordValid: false,
+          isConfirmPasswordValid: false,
+        ),
+      ],
+    );
+
+    blocTest<PasswordBloc, PasswordState>(
+      'invalid - empty confirm password',
+      build: PasswordBloc.new,
+      act: (bloc) => bloc.add(
+        ConfirmPasswordValidationEvent(
+          password: shortestValidPassword,
+          confirmPassword: emptyPassword,
+        ),
+      ),
+      expect: () => <PasswordState>[
+        const PasswordFieldChanged(
+          isHidden: true,
+          isPasswordValid: true,
+          isConfirmPasswordValid: false,
+        ),
+      ],
+    );
+
+    blocTest<PasswordBloc, PasswordState>(
+      'invalid - different strings',
+      build: PasswordBloc.new,
+      act: (bloc) => bloc.add(
+        ConfirmPasswordValidationEvent(
+          password: shortestValidPassword,
+          confirmPassword: longestValidPassword,
+        ),
+      ),
+      expect: () => <PasswordState>[
+        const PasswordFieldChanged(
+          isHidden: true,
+          isPasswordValid: true,
+          isConfirmPasswordValid: false,
+        ),
+      ],
+    );
+
+    blocTest<PasswordBloc, PasswordState>(
+      'invalid - equal invalid strings',
+      build: PasswordBloc.new,
+      act: (bloc) => bloc.add(
+        ConfirmPasswordValidationEvent(
+          password: noUpperCasePassword,
+          confirmPassword: noUpperCasePassword,
+        ),
+      ),
+      expect: () => <PasswordState>[
+        const PasswordFieldChanged(
+          isHidden: true,
+          isPasswordValid: false,
+          isConfirmPasswordValid: true,
+        ),
+      ],
+    );
+
+    blocTest<PasswordBloc, PasswordState>(
+      'valid - equal strings',
+      build: PasswordBloc.new,
+      act: (bloc) => bloc.add(
+        ConfirmPasswordValidationEvent(
+          password: longestValidPassword,
+          confirmPassword: longestValidPassword,
+        ),
+      ),
+      expect: () => <PasswordState>[
+        const PasswordFieldChanged(
+          isHidden: true,
+          isPasswordValid: true,
+          isConfirmPasswordValid: true,
+        ),
+      ],
+    );
+  });
 }

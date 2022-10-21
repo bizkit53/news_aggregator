@@ -53,7 +53,7 @@ class PasswordBloc extends Bloc<PasswordEvent, PasswordState> {
     _log.i('$ConfirmPasswordValidationEvent called');
     emit(
       PasswordFieldChanged(
-        isHidden: !state.isHidden,
+        isHidden: state.isHidden,
         isPasswordValid: _validatePassword(password: event.password),
         isConfirmPasswordValid: _validateConfirmPassword(
           password: event.password,
