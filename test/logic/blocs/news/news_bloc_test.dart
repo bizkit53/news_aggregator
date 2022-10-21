@@ -160,4 +160,41 @@ void main() {
       },
     );
   });
+
+  group('NewsBloc - clear results:', () {
+    blocTest<NewsBloc, NewsState>(
+      'first call from initial state',
+      build: () => NewsBloc(newsRepository: mockNewsRepository),
+      act: (bloc) => bloc.add(const ClearResultsEvent()),
+      expect: () => <NewsState>[
+        const NewsInitial(),
+      ],
+    );
+
+    blocTest<NewsBloc, NewsState>(
+      'clearing results after top news loaded',
+      build: () => NewsBloc(newsRepository: mockNewsRepository),
+      act: (bloc) => bloc
+        ..add(const GetTopNewsEvent())
+        ..add(const ClearResultsEvent()),
+      expect: () => <NewsState>[
+        const NewsLoading(newsList: []),
+        TopNewsLoaded(newsList: firstNewsList),
+        const NewsInitial(),
+      ],
+    );
+
+    blocTest<NewsBloc, NewsState>(
+      'clearing results after search news loaded',
+      build: () => NewsBloc(newsRepository: mockNewsRepository),
+      act: (bloc) => bloc
+        ..add(GetSearchNewsEvent(searchQuery: searchPattern))
+        ..add(const ClearResultsEvent()),
+      expect: () => <NewsState>[
+        const NewsLoading(newsList: []),
+        SearchNewsLoaded(newsList: firstNewsList),
+        const NewsInitial(),
+      ],
+    );
+  });
 }
