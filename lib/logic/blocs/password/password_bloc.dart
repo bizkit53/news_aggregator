@@ -1,3 +1,4 @@
+import 'dart:async';
 import 'package:equatable/equatable.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:logger/logger.dart';
@@ -10,44 +11,57 @@ part 'password_state.dart';
 class PasswordBloc extends Bloc<PasswordEvent, PasswordState> {
   /// Constructor
   PasswordBloc() : super(PasswordInitial()) {
-    on<PasswordVisibilityChangedEvent>((event, emit) {
-      _log.i('$PasswordVisibilityChangedEvent called');
-      emit(
-        PasswordFieldChanged(
-          isHidden: !state.isHidden,
-          isPasswordValid: state.isPasswordValid,
-          isConfirmPasswordValid: state.isConfirmPasswordValid,
-        ),
-      );
-      _log.i('$PasswordFieldChanged emitted');
-    });
+    on<PasswordVisibilityChangedEvent>(_passwordVisibilityChanged);
+    on<PasswordValidationEvent>(_passwordValidation);
+    on<ConfirmPasswordValidationEvent>(_confirmPasswordValidation);
+  }
 
-    on<PasswordValidationEvent>((event, emit) {
-      _log.i('$PasswordValidationEvent called');
-      emit(
-        PasswordFieldChanged(
-          isHidden: state.isHidden,
-          isPasswordValid: _validatePassword(password: event.password),
-          isConfirmPasswordValid: state.isConfirmPasswordValid,
-        ),
-      );
-      _log.i('$PasswordFieldChanged emitted');
-    });
+  FutureOr<void> _passwordVisibilityChanged(
+    PasswordVisibilityChangedEvent event,
+    Emitter<PasswordState> emit,
+  ) {
+    _log.i('$PasswordVisibilityChangedEvent called');
+    emit(
+      PasswordFieldChanged(
+        isHidden: !state.isHidden,
+        isPasswordValid: state.isPasswordValid,
+        isConfirmPasswordValid: state.isConfirmPasswordValid,
+      ),
+    );
+    _log.i('$PasswordFieldChanged emitted');
+  }
 
-    on<ConfirmPasswordValidationEvent>((event, emit) {
-      _log.i('$ConfirmPasswordValidationEvent called');
-      emit(
-        PasswordFieldChanged(
-          isHidden: !state.isHidden,
-          isPasswordValid: _validatePassword(password: event.password),
-          isConfirmPasswordValid: _validateConfirmPassword(
-            password: event.password,
-            confirmPassword: event.confirmPassword,
-          ),
+  FutureOr<void> _passwordValidation(
+    PasswordValidationEvent event,
+    Emitter<PasswordState> emit,
+  ) {
+    _log.i('$PasswordValidationEvent called');
+    emit(
+      PasswordFieldChanged(
+        isHidden: state.isHidden,
+        isPasswordValid: _validatePassword(password: event.password),
+        isConfirmPasswordValid: state.isConfirmPasswordValid,
+      ),
+    );
+    _log.i('$PasswordFieldChanged emitted');
+  }
+
+  FutureOr<void> _confirmPasswordValidation(
+    ConfirmPasswordValidationEvent event,
+    Emitter<PasswordState> emit,
+  ) {
+    _log.i('$ConfirmPasswordValidationEvent called');
+    emit(
+      PasswordFieldChanged(
+        isHidden: state.isHidden,
+        isPasswordValid: _validatePassword(password: event.password),
+        isConfirmPasswordValid: _validateConfirmPassword(
+          password: event.password,
+          confirmPassword: event.confirmPassword,
         ),
-      );
-      _log.i('$PasswordFieldChanged emitted');
-    });
+      ),
+    );
+    _log.i('$PasswordFieldChanged emitted');
   }
 
   /// Log style customizer

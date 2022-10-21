@@ -6,12 +6,40 @@ abstract class AuthEvent extends Equatable {
   const AuthEvent();
 
   @override
-  List<Object> get props => [];
+  List<Object?> get props => [];
 }
 
 class AuthStateChangedEvent extends AuthEvent {
   const AuthStateChangedEvent({this.user});
   final User? user;
+
+  @override
+  List<Object?> get props => [user];
 }
 
 class SignOutEvent extends AuthEvent {}
+
+class SubmitSignInEvent extends AuthEvent {
+  const SubmitSignInEvent({required this.email, required this.password});
+
+  final String email;
+  final String password;
+
+  @override
+  List<Object?> get props => [email, password];
+}
+
+class SubmitSignUpEvent extends AuthEvent {
+  const SubmitSignUpEvent({
+    required this.name,
+    required this.email,
+    required this.password,
+  });
+
+  final String name;
+  final String email;
+  final String password;
+
+  @override
+  List<Object> get props => [name, email, password];
+}

@@ -8,7 +8,7 @@ abstract class NewsState extends Equatable {
   final List<News> newsList;
 
   @override
-  List<Object> get props => [];
+  List<Object> get props => [newsList];
 }
 
 class NewsInitial extends NewsState {
